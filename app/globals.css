@@ -1,26 +1,505 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #f1ede5;
+  --ink: #1c1a17;
+  --charcoal: #100e0c;
+  --bronze: #9b6b42;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--cream);
+  color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-bronze: var(--bronze);
+  --color-charcoal: var(--charcoal);
+  --font-display: Georgia, "Times New Roman", serif;
+}
+
+.font-display {
+  font-feature-settings: "liga" 1, "kern" 1;
+  font-kerning: normal;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+.hero-heading {
+  font-feature-settings: "kern" 1;
+  font-variant-ligatures: none;
+}
+
+/*
+ * Buffer zone for masked line-reveal animations.
+ * Padding reserves room above/below the line box for ascenders and
+ * descenders (so tight `line-height` values never clip glyphs like the
+ * "g" in "watching") during the brief window the entrance animation is
+ * actually playing, and the matching negative margin cancels that padding
+ * out of the flow so visible line spacing is unaffected. The consuming
+ * component (hero.tsx) also releases `overflow: hidden` via an inline
+ * style once each line's reveal animation finishes, so nothing can clip a
+ * descender once the page is at rest.
+ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.16em;
+  margin-top: -0.16em;
+  padding-bottom: 0.44em;
+  margin-bottom: -0.44em;
+}
+
+::selection {
+  background: var(--bronze);
+  color: var(--cream);
+}
+
+.shell {
+  width: min(100% - 2.5rem, 90rem);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  color: color-mix(in srgb, var(--ink) 65%, transparent);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.hero-eyebrow {
+  color: color-mix(in srgb, var(--cream) 62%, transparent);
+}
+
+.nav-link {
+  color: color-mix(in srgb, var(--ink) 75%, transparent);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 260ms ease;
+}
+
+.nav-link::after {
+  background: var(--bronze);
+  bottom: -0.55rem;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+  width: 100%;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--bronze);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-cta {
+  border: 1px solid color-mix(in srgb, var(--ink) 75%, transparent);
+  color: var(--ink);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding: 0.9rem 1.35rem;
+  text-transform: uppercase;
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+/* Navbar floats transparently over the dark hero before scroll — nav-link
+   and nav-cta flip to cream-based colors so they stay legible, then flip
+   back to their ink-based defaults once the header gains its solid ground. */
+.navbar-transparent .nav-link {
+  color: color-mix(in srgb, var(--cream) 82%, transparent);
+}
+
+.navbar-transparent .nav-link:hover,
+.navbar-transparent .nav-link:focus-visible {
+  color: var(--bronze);
+}
+
+.navbar-transparent .nav-cta {
+  border-color: color-mix(in srgb, var(--cream) 70%, transparent);
+  color: var(--cream);
+}
+
+.navbar-transparent .nav-cta:hover,
+.navbar-transparent .nav-cta:focus-visible {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--ink);
+}
+
+/* Premium filled-on-hover CTA button (dark-section counterpart to .nav-cta). */
+.cta-button {
+  align-items: center;
+  border: 1px solid var(--bronze);
+  color: var(--cream);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 500;
+  gap: 0.85rem;
+  letter-spacing: 0.22em;
+  padding: 1.05rem 1.9rem;
+  text-transform: uppercase;
+  transition: background-color 320ms ease, border-color 320ms ease, color 320ms ease;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  background-color: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--charcoal);
+}
+
+.cta-arrow {
+  display: inline-block;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-button:hover .cta-arrow,
+.cta-button:focus-visible .cta-arrow {
+  transform: translate(0.2em, -0.2em);
+}
+
+/* Quiet outline pill CTA for light sections (see .cta-button for the dark-section, solid-fill counterpart). */
+.pill-button {
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid var(--bronze);
+  border-radius: 9999px;
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 500;
+  gap: 0.75rem;
+  letter-spacing: 0.25em;
+  padding: 0.8125rem 2rem;
+  text-transform: uppercase;
+  transition: background-color 250ms ease, border-color 250ms ease;
+}
+
+.pill-button:hover,
+.pill-button:focus-visible {
+  background-color: color-mix(in srgb, var(--bronze) 7%, transparent);
+  border-color: color-mix(in srgb, var(--bronze) 85%, var(--cream) 15%);
+}
+
+.pill-button-arrow {
+  display: inline-block;
+  transition: transform 250ms ease;
+}
+
+.pill-button:hover .pill-button-arrow,
+.pill-button:focus-visible .pill-button-arrow {
+  transform: translateX(3px);
+}
+
+.showreel-link {
+  align-items: center;
+  color: color-mix(in srgb, var(--cream) 82%, transparent);
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 500;
+  gap: 0.7rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  transition: color 220ms ease;
+}
+
+.showreel-link:hover,
+.showreel-link:focus-visible {
+  color: var(--bronze);
+}
+
+.hero-glow {
+  background: radial-gradient(circle, rgba(155, 107, 66, 0.13), rgba(155, 107, 66, 0.035) 35%, transparent 69%);
+  filter: blur(14px);
+  transform: translate3d(0, 0, 0);
+  animation: glow-drift 13s ease-in-out infinite alternate;
+}
+
+.hero-vignette {
+  background: radial-gradient(ellipse 72% 86% at 47% 44%, transparent 36%, rgba(3, 2, 1, 0.14) 100%), linear-gradient(112deg, rgba(155, 107, 66, 0.035), transparent 42%);
+}
+
+.showreel-frame {
+  border: 1px solid color-mix(in srgb, var(--cream) 24%, transparent);
+  background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 28%);
+  transition: border-color 650ms ease, box-shadow 650ms ease, transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showreel-frame:hover {
+  border-color: color-mix(in srgb, var(--bronze) 65%, transparent);
+  box-shadow: 0 38px 92px rgba(0, 0, 0, 0.54), 0 0 0 1px rgba(155, 107, 66, 0.08);
+  transform: translateY(-0.4rem) scale(1.006);
+}
+
+.showreel-object {
+  transform-origin: center;
+}
+
+.showreel-canvas {
+  background:
+    radial-gradient(ellipse at 70% 24%, rgba(177, 117, 69, 0.32), transparent 15%),
+    radial-gradient(ellipse at 26% 75%, rgba(111, 71, 41, 0.2), transparent 31%),
+    linear-gradient(135deg, #292019 0%, #16110e 49%, #0c0b09 100%);
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 900ms ease;
+}
+
+.showreel-reflection {
+  background:
+    linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.1) 46%, transparent 49%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 18%, transparent 78%, rgba(0, 0, 0, 0.25));
+  mix-blend-mode: screen;
+  opacity: 0.27;
+  transform: translateX(-6%);
+  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showreel-vignette {
+  background: radial-gradient(ellipse at center, transparent 39%, rgba(5, 4, 3, 0.12) 70%, rgba(3, 2, 1, 0.42) 100%);
+}
+
+.showreel-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.28'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.22;
+}
+
+.showreel-glass {
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.05), transparent 26%, rgba(255, 255, 255, 0.015) 66%, transparent);
+  box-shadow: inset 0 0 2rem rgba(255, 255, 255, 0.025);
+}
+
+.showreel-play {
+  box-shadow: 0 0 1.25rem rgba(155, 107, 66, 0.14);
+  position: relative;
+  transition: background-color 400ms ease, border-color 400ms ease, box-shadow 400ms ease, color 400ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showreel-play::after {
+  border: 0.5px solid rgba(155, 107, 66, 0.36);
+  border-radius: inherit;
+  content: "";
+  inset: -0.45rem;
+  opacity: 0;
+  position: absolute;
+  transform: scale(0.82);
+}
+
+.group:hover .showreel-play {
+  background-color: var(--bronze);
+  border-color: var(--bronze);
+  box-shadow: 0 0 0 0.55rem rgba(155, 107, 66, 0.06), 0 0 1.8rem rgba(155, 107, 66, 0.2);
+  color: var(--cream);
+  transform: scale(1.05);
+}
+
+.group:hover .showreel-play::after {
+  animation: play-ripple 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.group:hover .showreel-canvas {
+  filter: saturate(1.08) brightness(1.06);
+  transform: scale(1.045);
+}
+
+.group:hover .showreel-reflection {
+  opacity: 0.43;
+  transform: translateX(3%);
+}
+
+@keyframes play-ripple {
+  from {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes glow-drift {
+  from {
+    transform: translate3d(-2%, -2%, 0) scale(0.96);
+  }
+
+  to {
+    transform: translate3d(3%, 3%, 0) scale(1.04);
+  }
+}
+
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+@media (min-width: 48rem) {
+  .shell {
+    width: min(100% - 5rem, 90rem);
+  }
+}
+
+/*
+ * Featured Work — thumbnails reuse the showreel's frame/vignette/grain/
+ * reflection/play-button treatment (see above) for visual continuity with
+ * the hero. Only the color grade is new per project, standing in for real
+ * project photography until it exists.
+ */
+.work-canvas-amber {
+  background:
+    radial-gradient(ellipse at 75% 20%, rgba(198, 140, 86, 0.35), transparent 40%),
+    radial-gradient(ellipse at 20% 80%, rgba(120, 80, 45, 0.25), transparent 45%),
+    linear-gradient(160deg, #241c14 0%, #15100b 55%, #0b0908 100%);
+}
+
+.work-canvas-umber {
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(150, 110, 80, 0.3), transparent 42%),
+    radial-gradient(ellipse at 80% 75%, rgba(70, 55, 40, 0.28), transparent 45%),
+    linear-gradient(150deg, #201a17 0%, #130f0c 55%, #0a0807 100%);
+}
+
+.work-canvas-moss {
+  background:
+    radial-gradient(ellipse at 70% 25%, rgba(112, 128, 92, 0.28), transparent 42%),
+    radial-gradient(ellipse at 25% 78%, rgba(68, 82, 58, 0.24), transparent 46%),
+    linear-gradient(155deg, #1b1e16 0%, #12140f 55%, #0a0b08 100%);
+}
+
+.work-canvas-slate {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(120, 130, 140, 0.26), transparent 42%),
+    radial-gradient(ellipse at 78% 78%, rgba(70, 78, 86, 0.24), transparent 46%),
+    linear-gradient(150deg, #1a1c1e 0%, #101214 55%, #08090a 100%);
+}
+
+/* Lets hovering anywhere in a work row (not just the image) lift the frame. */
+.group:hover .work-frame {
+  border-color: color-mix(in srgb, var(--bronze) 55%, transparent);
+  box-shadow: 0 32px 70px rgba(16, 14, 12, 0.22), 0 0 0 1px rgba(155, 107, 66, 0.08);
+  transform: translateY(-0.35rem) scale(1.004);
+}
+
+.work-index {
+  font-family: var(--font-display);
+  color: color-mix(in srgb, var(--ink) 8%, transparent);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+/*
+ * Impact strip — four stats that stack to 1 column on mobile, 2 on
+ * tablet, 4 on desktop, with dividers that reflow to match: a top rule
+ * between stacked items, adding a left rule once a row holds two, and
+ * switching to left-only dividers once all four sit in a single row.
+ */
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.impact-item {
+  border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  padding-top: 2rem;
+}
+
+.impact-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+@media (min-width: 48rem) {
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+  }
+
+  .impact-item {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .impact-item:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .impact-item:nth-child(even) {
+    border-left: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+    padding-left: 3rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .impact-grid {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3.5rem;
+  }
+
+  .impact-item,
+  .impact-item:nth-child(n + 3) {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .impact-item:nth-child(even) {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .impact-item:not(:first-child) {
+    border-left: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+    padding-left: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
