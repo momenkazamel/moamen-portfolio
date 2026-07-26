@@ -29,7 +29,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/og-image.png",
+        // Cache-busting query param — WhatsApp/LinkedIn/etc. cache OG images
+        // by URL and won't re-fetch on their own after an in-place update.
+        url: "/og-image.png?v=2",
         width: 1200,
         height: 630,
         alt: "Moamen Kazamel — AI Creative Director",
@@ -40,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/og-image.png"],
+    images: ["/og-image.png?v=2"],
   },
 };
 
