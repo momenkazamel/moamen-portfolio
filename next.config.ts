@@ -9,19 +9,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Enforce the apex domain (moamenkazamel.com, no www) as canonical at the
-  // application layer — a permanent redirect regardless of how the two
-  // hostnames are wired up in Vercel's own domain settings.
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.moamenkazamel.com" }],
-        destination: "https://moamenkazamel.com/:path*",
-        permanent: true,
-      },
-    ];
-  },
+  // www → apex redirect is handled entirely by Vercel's domain settings
+  // (moamenkazamel.com set as primary, www redirecting to it) — a
+  // duplicate host-based redirect here caused ERR_TOO_MANY_REDIRECTS by
+  // fighting with Vercel's own redirect. Do not re-add it in code.
 };
 
 export default nextConfig;
