@@ -32,7 +32,7 @@ export function Footer() {
           the existing 5rem/6rem bottom padding — resolves to exactly the
           original value on devices with no inset (env() = 0 there). */}
       <div className="shell relative pt-20 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pt-24 lg:pb-[calc(6rem+env(safe-area-inset-bottom))]">
-        <div className="grid gap-14 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-x-10">
+        <div className="grid gap-16 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-x-10">
           <div>
             <h2 className="font-display text-[clamp(1.65rem,4.07vw,3.7rem)] leading-[1.1] tracking-[-0.03em]">
               <span className="block">Let&apos;s create</span>

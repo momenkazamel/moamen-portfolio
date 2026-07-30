@@ -32,7 +32,7 @@ export function KidsUniverse() {
       <div aria-hidden="true" className="hero-vignette pointer-events-none absolute inset-0" />
       <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 opacity-50" />
 
-      <div className="shell relative grid min-h-[52vh] content-center py-14 sm:min-h-[70vh] sm:py-20 lg:min-h-[64vh] lg:grid-cols-12 lg:items-center">
+      <div className="shell relative grid min-h-[52vh] content-center py-16 sm:min-h-[70vh] sm:py-20 lg:min-h-[64vh] lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5 lg:col-start-8">
           <p className="eyebrow hero-eyebrow mb-6 flex items-center gap-4">
             <span aria-hidden="true" className="h-px w-11 bg-bronze" />

@@ -458,8 +458,12 @@ body {
 
 .impact-item:nth-child(n + 3) {
   border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
-  padding-top: 1.75rem;
-  margin-top: 1.75rem;
+  /* Tighter than the tablet/desktop value below: with the supporting
+     sentence hidden on phones (see impact.tsx), each cell is now just a
+     number + a short label, so a 3.5rem row gutter reads as too much dead
+     air between two compact cells. */
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .impact-item:nth-child(even) {

@@ -32,7 +32,7 @@ export function About() {
         }}
       />
 
-      <div className="shell relative grid min-h-[62vh] content-center py-16 sm:min-h-[85vh] sm:py-24 lg:grid-cols-2 lg:pb-0 lg:pt-16">
+      <div className="shell relative grid min-h-[62vh] content-center py-20 sm:min-h-[85vh] sm:py-24 lg:grid-cols-2 lg:pb-0 lg:pt-16">
         {/* Capped at every breakpoint, not just `lg:` — the scrim gradient
             fades from dark (left) to almost transparent (right), tuned for
             text staying in the left half. Without a width cap, text on

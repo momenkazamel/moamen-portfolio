@@ -309,29 +309,56 @@ export function Navbar() {
           >
             <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 opacity-40" />
 
-            <nav aria-label="Mobile navigation" className="shell relative flex flex-1 flex-col justify-center gap-2 py-10">
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.href}
-                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: prefersReducedMotion ? 0.01 : 0.45,
-                    delay: prefersReducedMotion ? 0 : 0.08 + index * 0.05,
-                    ease: easeEditorial,
-                  }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={(event) => handleNavClick(event, item.href)}
-                    className={`block border-b border-cream/10 py-5 text-[clamp(1.4rem,6.5vw,2.1rem)] font-medium uppercase leading-none tracking-[0.06em] transition-colors duration-300 ${
-                      activeSection === item.href.slice(1) ? "text-bronze" : "text-cream"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
+            {/* Structured top-to-bottom composition (label → links → CTA)
+                rather than one vertically-centered blob — reads as a
+                deliberate, editorial "table of contents" instead of a
+                generic enlarged dropdown. The small tracked index numbers
+                beside each link echo the ghost numerals used in Featured
+                Work, tying the fullscreen menu back into the site's own
+                visual language. */}
+            <nav aria-label="Mobile navigation" className="shell relative flex flex-1 flex-col py-8">
+              <p className="eyebrow hero-eyebrow mb-2 flex items-center gap-4">
+                <span aria-hidden="true" className="h-px w-8 bg-bronze" />
+                Menu
+              </p>
+
+              <div className="flex flex-1 flex-col justify-center gap-1">
+                {navigation.map((item, index) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: prefersReducedMotion ? 0.01 : 0.45,
+                        delay: prefersReducedMotion ? 0 : 0.08 + index * 0.05,
+                        ease: easeEditorial,
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={(event) => handleNavClick(event, item.href)}
+                        className={`group flex items-baseline gap-4 border-b border-cream/10 py-4 transition-colors duration-300 hover:text-bronze focus-visible:text-bronze focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${
+                          isActive ? "text-bronze" : "text-cream"
+                        }`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`text-[0.68rem] font-medium uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-bronze group-focus-visible:text-bronze ${
+                            isActive ? "text-bronze" : "text-cream/30"
+                          }`}
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="font-display text-[clamp(2.1rem,9vw,2.75rem)] leading-[1.05] tracking-[-0.02em]">
+                          {item.label}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
 
               <motion.div
                 initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}

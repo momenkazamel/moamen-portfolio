@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
  * narrow viewports instead of holding a flat, oversized value that can
  * wrap ("Stories worth" onto two lines) and clip inside the reveal mask.
  */
-const headlineSize = "text-[clamp(2.5rem,11vw,3.75rem)] sm:text-[clamp(3.5rem,9vw,5.5rem)] lg:text-[clamp(4.25rem,9.45vw,10.125rem)]";
+const headlineSize = "text-[clamp(2.75rem,12.5vw,3.75rem)] sm:text-[clamp(3.5rem,9vw,5.5rem)] lg:text-[clamp(4.25rem,9.45vw,10.125rem)]";
 
 export function Hero() {
   const { back: glow, handlePointerMove, reset, prefersReducedMotion } = useParallaxPointer();
@@ -46,13 +46,13 @@ export function Hero() {
       <div className="hero-grain pointer-events-none absolute inset-0 opacity-50" />
 
       <motion.div
-        className="shell relative grid min-h-[90svh] content-center py-10 sm:min-h-[calc(100svh-4.75rem-150px)] sm:py-20 lg:min-h-[calc(100svh-5.75rem-150px)] lg:-translate-y-5 lg:py-24"
+        className="shell relative grid min-h-[90svh] content-center py-12 sm:min-h-[calc(100svh-4.75rem-150px)] sm:py-20 lg:min-h-[calc(100svh-5.75rem-150px)] lg:-translate-y-5 lg:py-24"
         initial={prefersReducedMotion ? false : "hidden"}
         animate="visible"
         variants={staggerChildren()}
       >
         <motion.p
-          className="eyebrow hero-eyebrow mb-6 flex items-center gap-4 sm:mb-10 lg:mb-12"
+          className="eyebrow hero-eyebrow mb-5 flex items-center gap-4 sm:mb-10 lg:mb-12"
           variants={fadeUp}
           transition={{ duration: 0.7, ease: easeEditorial }}
         >
@@ -89,7 +89,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          className="mt-6 max-w-lg text-[0.98rem] leading-7 text-cream/65 sm:mt-10 lg:mt-12 lg:text-lg lg:leading-8"
+          className="mt-8 max-w-lg text-[0.98rem] leading-7 text-cream/65 sm:mt-10 lg:mt-12 lg:text-lg lg:leading-8"
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >

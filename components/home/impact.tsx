@@ -55,7 +55,7 @@ export function Impact() {
       <div aria-hidden="true" className="hero-vignette pointer-events-none absolute inset-0" />
       <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 opacity-50" />
 
-      <div className="shell relative pt-16 pb-11">
+      <div className="shell relative pt-14 pb-16 lg:pt-16 lg:pb-11">
         <motion.dl
           className="impact-grid"
           initial={prefersReducedMotion ? false : "hidden"}
@@ -78,7 +78,16 @@ export function Impact() {
                   {stat.label}
                 </span>
               </dt>
-              <dd className="mt-[18px] min-h-[3rem] max-w-xs text-[0.92rem] leading-6 text-cream/68">{stat.description}</dd>
+              {/* The supporting sentence only appears once a column has real
+                  room to breathe (sm: and up) — at 375-430px, a 2-column
+                  grid gives each cell ~150-190px, too narrow for a full
+                  sentence without wrapping to 3-4 uneven lines per cell,
+                  which is what made this grid feel messy rather than
+                  clean. Below that width the grid is a confident,
+                  number-led pairing instead. */}
+              <dd className="mt-[18px] hidden min-h-[3rem] max-w-xs text-[0.92rem] leading-6 text-cream/68 sm:block">
+                {stat.description}
+              </dd>
             </motion.div>
           ))}
         </motion.dl>

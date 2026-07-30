@@ -9,8 +9,8 @@ import { projects } from "@/components/home/work-data";
  */
 export function FeaturedWork() {
   return (
-    <section id="work" className="relative bg-cream pb-20 pt-24 text-ink sm:pb-32 lg:pb-72 lg:pt-32">
-      <div className="shell pt-20">
+    <section id="work" className="relative bg-cream pb-20 pt-14 text-ink sm:pb-32 sm:pt-20 lg:pb-72 lg:pt-32">
+      <div className="shell pt-10 sm:pt-16 lg:pt-20">
         <div className="max-w-2xl">
           <span aria-hidden="true" className="mb-8 block h-px w-11 bg-bronze" />
           <h2 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.98] tracking-[-0.03em]">
@@ -19,7 +19,7 @@ export function FeaturedWork() {
         </div>
       </div>
 
-      <ol className="mt-20 list-none divide-y divide-ink/10 border-y border-ink/10 lg:mt-24">
+      <ol className="mt-14 list-none divide-y divide-ink/10 border-y border-ink/10 sm:mt-20 lg:mt-24">
         {projects.map((project, i) => (
           <WorkItem key={project.title} project={project} index={i + 1} />
         ))}
