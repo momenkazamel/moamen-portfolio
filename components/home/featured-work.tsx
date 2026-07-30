@@ -9,7 +9,7 @@ import { projects } from "@/components/home/work-data";
  */
 export function FeaturedWork() {
   return (
-    <section id="work" className="relative bg-cream pb-64 pt-24 text-ink lg:pb-72 lg:pt-32">
+    <section id="work" className="relative bg-cream pb-20 pt-24 text-ink sm:pb-32 lg:pb-72 lg:pt-32">
       <div className="shell pt-20">
         <div className="max-w-2xl">
           <span aria-hidden="true" className="mb-8 block h-px w-11 bg-bronze" />
@@ -25,7 +25,7 @@ export function FeaturedWork() {
         ))}
       </ol>
 
-      <div className="shell mt-64 flex justify-center lg:mt-72">
+      <div className="shell mt-20 flex justify-center sm:mt-32 lg:mt-72">
         <PillButton href="mailto:momenkazamel@gmail.com?subject=Let's%20Work%20Together">
           Let&apos;s Work Together
         </PillButton>

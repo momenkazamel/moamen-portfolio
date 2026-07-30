@@ -36,9 +36,15 @@ export function CountUp({ value, suffix = "", duration = 1.8, className = "", su
   }, [isInView, value, duration, prefersReducedMotion]);
 
   return (
-    <span ref={ref} className={className}>
-      <span className="tabular-nums">{display}</span>
-      {suffix ? <span className={suffixClassName}>{suffix}</span> : null}
+    <span ref={ref} className={className} aria-label={`${value}${suffix}`}>
+      <span aria-hidden="true" className="tabular-nums">
+        {display}
+      </span>
+      {suffix ? (
+        <span aria-hidden="true" className={suffixClassName}>
+          {suffix}
+        </span>
+      ) : null}
     </span>
   );
 }

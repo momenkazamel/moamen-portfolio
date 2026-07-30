@@ -33,7 +33,12 @@ export function About() {
       />
 
       <div className="shell relative grid min-h-[62vh] content-center py-16 sm:min-h-[85vh] sm:py-24 lg:grid-cols-2 lg:pb-0 lg:pt-16">
-        <div className="lg:max-w-md">
+        {/* Capped at every breakpoint, not just `lg:` — the scrim gradient
+            fades from dark (left) to almost transparent (right), tuned for
+            text staying in the left half. Without a width cap, text on
+            mobile/tablet would span the full section and drift into the
+            barely-obscured right portion of the photo. */}
+        <div className="max-w-sm lg:max-w-md">
           <p
             className="eyebrow hero-eyebrow mb-6 flex items-center gap-4"
             style={{ letterSpacing: "0.28em", fontWeight: 400 }}

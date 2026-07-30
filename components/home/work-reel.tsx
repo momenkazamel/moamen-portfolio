@@ -39,12 +39,25 @@ type WorkReelProps = {
  */
 export function WorkReel({ grade, title, href, ariaLabel, videoSrc, posterSrc, youtubeVideoId }: WorkReelProps) {
   const frameRef = useRef<HTMLDivElement>(null);
-  const [isNearViewport, setIsNearViewport] = useState(() => typeof IntersectionObserver === "undefined");
+  // Always starts `false` on both server and client — deciding this via a
+  // `typeof IntersectionObserver === "undefined"` check in the initializer
+  // would evaluate differently between environments (Node has no
+  // IntersectionObserver at all, so SSR would always "load" the video,
+  // client would not) and cause a hydration mismatch across all six of
+  // these on the page. The unsupported-browser fallback lives in the
+  // effect instead, which only ever runs client-side.
+  const [isNearViewport, setIsNearViewport] = useState(false);
 
   useEffect(() => {
     if (isNearViewport) return;
     const node = frameRef.current;
     if (!node) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time fallback for browsers without IntersectionObserver support
+      setIsNearViewport(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {

@@ -62,10 +62,11 @@ export function Hero() {
 
         <motion.h1
           id="hero-title"
+          aria-label="Stories worth watching twice."
           className={`hero-heading font-display max-w-[68rem] leading-[0.89] tracking-[-0.072em] ${headlineSize}`}
           variants={staggerChildren()}
         >
-          <span className="reveal-line" style={line1Settled ? { overflow: "visible" } : undefined}>
+          <span aria-hidden="true" className="reveal-line" style={line1Settled ? { overflow: "visible" } : undefined}>
             <motion.span
               className="block"
               variants={revealLine}
@@ -75,7 +76,7 @@ export function Hero() {
               Stories worth
             </motion.span>
           </span>
-          <span className="reveal-line" style={line2Settled ? { overflow: "visible" } : undefined}>
+          <span aria-hidden="true" className="reveal-line" style={line2Settled ? { overflow: "visible" } : undefined}>
             <motion.span
               className="block text-[0.91em] tracking-[0.01em] text-bronze"
               variants={revealLine}

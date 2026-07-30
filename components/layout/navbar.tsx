@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MonogramMark } from "@/components/ui/monogram-mark";
 import { easeEditorial } from "@/components/home/hero.motion";
@@ -31,16 +31,22 @@ function smoothScrollToId(id: string, duration = 900) {
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion) {
-    window.scrollTo(0, targetY);
+    window.scrollTo({ top: targetY, behavior: "instant" });
     return;
   }
 
   const startTime = performance.now();
 
+  // `behavior: "instant"` on every frame is deliberate: the page has global
+  // `scroll-behavior: smooth` CSS, and the legacy two-argument `scrollTo(x, y)`
+  // form defaults to `behavior: "auto"`, which respects that CSS and tries to
+  // smoothly animate to each intermediate target itself — fighting this
+  // function's own per-frame easing and producing a stuttery scroll instead
+  // of the intended one.
   function step(now: number) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo(0, startY + (targetY - startY) * easeInOutCubic(progress));
+    window.scrollTo({ top: startY + (targetY - startY) * easeInOutCubic(progress), behavior: "instant" });
     if (progress < 1) requestAnimationFrame(step);
   }
 
@@ -64,6 +70,8 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleScroll() {
@@ -95,19 +103,91 @@ export function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  // Lock body scroll while the fullscreen menu is open.
+  // Lock body scroll while the fullscreen menu is open. Plain
+  // `overflow: hidden` on <body> is well known not to actually stop touch
+  // scrolling on iOS Safari — pinning the body with `position: fixed` (and
+  // restoring the exact scroll offset afterwards) is the reliable
+  // cross-browser fix.
   useEffect(() => {
     if (!isMenuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const scrollY = window.scrollY;
+    const { body } = document;
+    const previous = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = previousOverflow;
+      body.style.position = previous.position;
+      body.style.top = previous.top;
+      body.style.width = previous.width;
+      body.style.overflow = previous.overflow;
+      // Object form + "instant": same reasoning as smoothScrollToId — the
+      // legacy two-arg call would respect the global `scroll-behavior: smooth`
+      // and visibly animate back to the stored offset instead of restoring
+      // it instantly, producing a jarring "scroll jump" every time the menu closes.
+      window.scrollTo({ top: scrollY, behavior: "instant" });
     };
   }, [isMenuOpen]);
 
+  // Hide the rest of the page from screen readers / keyboard tab order
+  // while the fullscreen menu covers it, so Tab can't "escape" into content
+  // that's visually hidden behind an opaque overlay.
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (!main) return;
+    if (isMenuOpen) {
+      main.setAttribute("inert", "");
+    } else {
+      main.removeAttribute("inert");
+    }
+    return () => main.removeAttribute("inert");
+  }, [isMenuOpen]);
+
+  // Escape closes the menu; resizing past the `lg:` breakpoint (e.g. a
+  // developer resizing the window, or a tablet rotating) auto-closes it so
+  // it can never get stuck open with scroll still locked once the
+  // fullscreen menu's trigger is no longer even visible.
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") closeMenu();
+    }
+    function handleResize() {
+      if (window.innerWidth >= 1024) closeMenu();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMenuOpen]);
+
+  // Move focus into the panel when it opens so keyboard/screen-reader users
+  // land somewhere sensible instead of on now-inert background content.
+  useEffect(() => {
+    if (isMenuOpen) panelRef.current?.focus();
+  }, [isMenuOpen]);
+
+  function closeMenu() {
+    setIsMenuOpen(false);
+    toggleButtonRef.current?.focus();
+  }
+
   function handleNavClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
     event.preventDefault();
-    setIsMenuOpen(false);
+    closeMenu();
     smoothScrollToId(href.slice(1));
   }
 
@@ -131,6 +211,8 @@ export function Navbar() {
         <Link
           href="/"
           aria-label="Moamen Kazamel — home"
+          aria-hidden={isMenuOpen}
+          tabIndex={isMenuOpen ? -1 : undefined}
           className={`group flex items-center gap-4 transition-colors duration-500 ${logoTextClass} hover:opacity-70`}
         >
           <MonogramMark
@@ -178,6 +260,7 @@ export function Navbar() {
 
         {/* Hamburger / close toggle — visible below `lg:` only. */}
         <button
+          ref={toggleButtonRef}
           type="button"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMenuOpen}
@@ -205,8 +288,14 @@ export function Navbar() {
       <AnimatePresence>
         {isMenuOpen ? (
           <motion.div
+            key="mobile-menu"
             id="mobile-menu"
-            className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-charcoal text-cream lg:hidden"
+            ref={panelRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
+            className="navbar-transparent fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-charcoal text-cream outline-none lg:hidden"
             style={{
               paddingTop: "calc(env(safe-area-inset-top) + 4.75rem)",
               paddingBottom: "env(safe-area-inset-bottom)",
@@ -257,11 +346,13 @@ export function Navbar() {
                   href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="mt-6 flex items-center gap-3 text-[0.75rem] font-medium uppercase tracking-[0.22em] text-bronze"
+                  onClick={closeMenu}
+                  className="nav-cta mt-8"
                 >
                   Download Resume
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true" className="text-[0.6rem]">
+                    ↗
+                  </span>
                 </Link>
               </motion.div>
             </nav>
