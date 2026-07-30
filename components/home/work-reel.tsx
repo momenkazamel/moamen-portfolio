@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import type { WorkGrade } from "@/components/home/work-data";
 import { YoutubeCardVideo } from "@/components/ui/youtube-card-video";
 
@@ -23,22 +26,54 @@ type WorkReelProps = {
  * Hover already communicates interactivity via the frame's own lift/scale/
  * brighten treatment, so no separate icon is needed.
  *
+ * The actual video/iframe is only mounted once the card scrolls near the
+ * viewport (IntersectionObserver, ~200px lookahead) — with six of these on
+ * the page, loading all six YouTube embeds/videos up front on page load
+ * would be wasteful, especially on mobile data. The gradient canvas shows
+ * immediately either way so the card never looks empty while it waits.
+ *
  * No project has real footage yet except "Before the First Sip" (via
  * `youtubeVideoId`) — everything else falls back to the color-graded
  * gradient placeholder used before. Drop an mp4 URL into a project's
  * `videoSrc` in work-data.ts and it starts playing automatically.
  */
 export function WorkReel({ grade, title, href, ariaLabel, videoSrc, posterSrc, youtubeVideoId }: WorkReelProps) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(() => typeof IntersectionObserver === "undefined");
+
+  useEffect(() => {
+    if (isNearViewport) return;
+    const node = frameRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsNearViewport(true);
+        }
+      },
+      { rootMargin: "200px 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isNearViewport]);
+
+  const shouldLoadVideo = isNearViewport && (youtubeVideoId || videoSrc);
+
   const frame = (
-    <div className="showreel-frame work-frame relative aspect-[9/16] w-full max-w-[22rem] overflow-hidden rounded-[6px] bg-[#15120f] shadow-[0_20px_50px_rgba(16,14,12,0.18)]">
+    <div
+      ref={frameRef}
+      className="showreel-frame work-frame relative aspect-[9/16] w-full max-w-none overflow-hidden rounded-[6px] bg-[#15120f] shadow-[0_20px_50px_rgba(16,14,12,0.18)] sm:max-w-md lg:max-w-[22rem]"
+    >
       <div aria-hidden="true" className={`showreel-canvas work-canvas-${grade} absolute inset-0`} />
 
-      {youtubeVideoId ? (
+      {shouldLoadVideo && youtubeVideoId ? (
         <YoutubeCardVideo
           videoId={youtubeVideoId}
           className="brightness-[0.9] transition-[transform,filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:brightness-100"
         />
-      ) : videoSrc ? (
+      ) : shouldLoadVideo && videoSrc ? (
         <video
           aria-hidden="true"
           autoPlay

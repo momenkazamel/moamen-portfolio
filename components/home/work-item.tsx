@@ -24,14 +24,14 @@ export function WorkItem({ project, index }: WorkItemProps) {
 
   return (
     <motion.li
-      className="group py-12 transition-colors duration-500 hover:bg-ink/[0.02] lg:py-16"
+      className="group py-14 transition-colors duration-500 hover:bg-ink/[0.02] lg:py-16"
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-10% 0px" }}
       transition={{ duration: 0.8, ease: easeEditorial }}
     >
-      <div className="shell grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-14">
+      <div className="shell grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-14">
         <div className={`lg:col-span-4 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
           <WorkReel
             grade={project.grade}

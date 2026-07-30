@@ -69,8 +69,12 @@ body {
 }
 
 .shell {
-  width: min(100% - 2.5rem, 90rem);
+  width: min(100% - 2rem, 90rem);
   margin-inline: auto;
+  /* Extra inset for a landscape notch/Dynamic Island/rounded corner — 0 on
+     any device without one, so this never affects normal layout. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 .eyebrow {
@@ -247,9 +251,19 @@ body {
 
 .hero-glow {
   background: radial-gradient(circle, rgba(155, 107, 66, 0.13), rgba(155, 107, 66, 0.035) 35%, transparent 69%);
-  filter: blur(14px);
+  /* Lighter blur radius and no continuous animation below `lg:` — this
+     ambient glow is mostly hidden behind the video/text on small screens
+     anyway, so it's not worth the GPU cost of a large blur + infinite
+     animation running constantly on phones. Desktop is unchanged. */
+  filter: blur(6px);
   transform: translate3d(0, 0, 0);
-  animation: glow-drift 13s ease-in-out infinite alternate;
+}
+
+@media (min-width: 64rem) {
+  .hero-glow {
+    filter: blur(14px);
+    animation: glow-drift 13s ease-in-out infinite alternate;
+  }
 }
 
 .hero-vignette {
@@ -426,45 +440,44 @@ body {
 }
 
 /*
- * Impact strip — four stats that stack to 1 column on mobile, 2 on
- * tablet, 4 on desktop, with dividers that reflow to match: a top rule
- * between stacked items, adding a left rule once a row holds two, and
- * switching to left-only dividers once all four sit in a single row.
+ * Impact strip — four stats in a balanced 2x2 grid on mobile AND tablet
+ * (dividers: left rule between the two columns, top rule between the two
+ * rows), switching to a single 4-column row with left-only dividers on
+ * desktop.
  */
 .impact-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.5rem;
 }
 
 .impact-item {
-  border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
-  padding-top: 2rem;
-}
-
-.impact-item:first-child {
   border-top: none;
   padding-top: 0;
 }
 
+.impact-item:nth-child(n + 3) {
+  border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  padding-top: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.impact-item:nth-child(even) {
+  border-left: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  padding-left: 1.5rem;
+}
+
 @media (min-width: 48rem) {
   .impact-grid {
-    grid-template-columns: repeat(2, 1fr);
     column-gap: 3rem;
   }
 
-  .impact-item {
-    border-top: none;
-    padding-top: 0;
-  }
-
   .impact-item:nth-child(n + 3) {
-    border-top: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
     padding-top: 2.5rem;
     margin-top: 2.5rem;
   }
 
   .impact-item:nth-child(even) {
-    border-left: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
     padding-left: 3rem;
   }
 }

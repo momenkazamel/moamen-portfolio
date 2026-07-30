@@ -34,7 +34,9 @@ export function Hero() {
       onPointerLeave={reset}
     >
       <BackgroundVideo mp4Src="/videos/hero-background.mp4" webmSrc="/videos/hero-background.webm" />
-      <div aria-hidden="true" className="absolute inset-0 bg-charcoal/60" />
+      {/* Stronger scrim on phones (video detail matters less than text
+          legibility on a small screen); unchanged 60% from `lg:` up. */}
+      <div aria-hidden="true" className="absolute inset-0 bg-charcoal/75 lg:bg-charcoal/60" />
       <motion.div
         aria-hidden="true"
         className="hero-glow pointer-events-none absolute -right-[20%] top-[4%] h-[43rem] w-[43rem] rounded-full"
@@ -44,13 +46,13 @@ export function Hero() {
       <div className="hero-grain pointer-events-none absolute inset-0 opacity-50" />
 
       <motion.div
-        className="shell relative grid min-h-[calc(100svh-4.75rem-150px)] content-center py-16 sm:py-20 lg:min-h-[calc(100svh-5.75rem-150px)] lg:-translate-y-5 lg:py-24"
+        className="shell relative grid min-h-[90svh] content-center py-10 sm:min-h-[calc(100svh-4.75rem-150px)] sm:py-20 lg:min-h-[calc(100svh-5.75rem-150px)] lg:-translate-y-5 lg:py-24"
         initial={prefersReducedMotion ? false : "hidden"}
         animate="visible"
         variants={staggerChildren()}
       >
         <motion.p
-          className="eyebrow hero-eyebrow mb-10 flex items-center gap-4 lg:mb-12"
+          className="eyebrow hero-eyebrow mb-6 flex items-center gap-4 sm:mb-10 lg:mb-12"
           variants={fadeUp}
           transition={{ duration: 0.7, ease: easeEditorial }}
         >
@@ -86,14 +88,18 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          className="mt-10 max-w-lg text-[0.98rem] leading-7 text-cream/65 lg:mt-12 lg:text-lg lg:leading-8"
+          className="mt-6 max-w-lg text-[0.98rem] leading-7 text-cream/65 sm:mt-10 lg:mt-12 lg:text-lg lg:leading-8"
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >
           I direct and produce cinematic campaigns, visual identities, and social worlds—with AI as a quiet collaborator.
         </motion.p>
 
-        <motion.div className="mt-10 lg:mt-12" variants={fadeUp} transition={{ duration: 0.75, ease: easeEditorial }}>
+        <motion.div
+          className="mt-6 sm:mt-10 lg:mt-12"
+          variants={fadeUp}
+          transition={{ duration: 0.75, ease: easeEditorial }}
+        >
           <ArrowLink href="#work" className="border-cream text-cream hover:border-bronze hover:text-bronze">
             View selected work
           </ArrowLink>

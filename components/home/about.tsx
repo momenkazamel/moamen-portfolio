@@ -20,7 +20,7 @@ export function About() {
       />
       <div
         aria-hidden="true"
-        className="absolute -inset-2 bg-cover bg-no-repeat blur-[3px]"
+        className="absolute -inset-2 bg-cover bg-no-repeat blur-[1.5px] lg:blur-[3px]"
         style={{ backgroundImage: 'url("/images/about-background.png")', backgroundPosition: "120% center" }}
       />
       <div
@@ -32,7 +32,7 @@ export function About() {
         }}
       />
 
-      <div className="shell relative grid min-h-[85vh] content-center py-24 lg:grid-cols-2 lg:pb-0 lg:pt-16">
+      <div className="shell relative grid min-h-[62vh] content-center py-16 sm:min-h-[85vh] sm:py-24 lg:grid-cols-2 lg:pb-0 lg:pt-16">
         <div className="lg:max-w-md">
           <p
             className="eyebrow hero-eyebrow mb-6 flex items-center gap-4"
@@ -46,12 +46,12 @@ export function About() {
             Stories before technology.
           </h2>
 
-          <p className="mt-6 max-w-[30rem] text-[0.98rem] leading-7 text-cream/65 lg:text-lg lg:leading-8">
+          <p className="mt-5 max-w-[26rem] text-[0.95rem] leading-[1.75] text-cream/65 sm:mt-6 sm:max-w-[30rem] sm:text-[0.98rem] sm:leading-7 lg:text-lg lg:leading-8">
             I&apos;m Moamen Kazamel, an AI Creative Director creating cinematic campaigns, AI films, and digital
             worlds where technology serves the story—not the other way around.
           </p>
 
-          <div className="mt-10 flex flex-col gap-2">
+          <div className="mt-8 flex flex-col gap-2 sm:mt-10">
             <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">AI Creative Director</p>
             <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">AiBrush Studio</p>
           </div>

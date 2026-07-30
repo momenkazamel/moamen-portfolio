@@ -1,9 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const SITE_URL = "https://moamenkazamel.com";
 const SITE_TITLE = "Moamen Kazamel — Creative Director";
 const SITE_DESCRIPTION = "The portfolio of Moamen Kazamel, independent creative director.";
+
+// viewportFit: "cover" is what makes the various env(safe-area-inset-*)
+// values used across the site (navbar, footer, fullscreen mobile menu)
+// actually resolve to real values instead of always being 0.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#100e0c",
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

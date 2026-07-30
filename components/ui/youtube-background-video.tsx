@@ -38,6 +38,7 @@ export function YoutubeBackgroundVideo({ videoId, start, end }: YoutubeBackgroun
         src={`https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`}
         title=""
         tabIndex={-1}
+        loading="lazy"
         allow="autoplay; encrypted-media"
         className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
       />

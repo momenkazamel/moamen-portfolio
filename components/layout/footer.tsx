@@ -28,8 +28,11 @@ export function Footer() {
       <div aria-hidden="true" className="hero-vignette pointer-events-none absolute inset-0" />
       <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 opacity-40" />
 
-      <div className="shell relative py-20 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-x-10">
+      {/* pb adds the home-indicator/gesture-nav safe-area inset on top of
+          the existing 5rem/6rem bottom padding — resolves to exactly the
+          original value on devices with no inset (env() = 0 there). */}
+      <div className="shell relative pt-20 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pt-24 lg:pb-[calc(6rem+env(safe-area-inset-bottom))]">
+        <div className="grid gap-14 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-x-10">
           <div>
             <h2 className="font-display text-[clamp(1.65rem,4.07vw,3.7rem)] leading-[1.1] tracking-[-0.03em]">
               <span className="block">Let&apos;s create</span>
@@ -58,7 +61,7 @@ export function Footer() {
                 href="https://aibrush.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-1 inline-flex items-baseline gap-2 border-b border-transparent pb-0.5 font-display text-[1.05rem] tracking-[-0.01em] text-bronze transition-[border-color] duration-300 ease-out hover:border-bronze/70"
+                className="group mt-1 inline-flex items-baseline gap-2 border-b border-transparent pb-0.5 pt-2 font-display text-[1.05rem] tracking-[-0.01em] text-bronze transition-[border-color] duration-300 ease-out hover:border-bronze/70 lg:pt-0"
               >
                 AiBrush Studio
                 <span
@@ -72,32 +75,32 @@ export function Footer() {
 
             <div className="mt-8">
               <p className="text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/40">Contact</p>
-              <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2">
                 <ArrowLink
                   href={`mailto:${EMAIL}`}
                   external
-                  className="border-cream/70 text-cream hover:border-bronze hover:text-bronze"
+                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
                 >
                   Email
                 </ArrowLink>
                 <ArrowLink
                   href={LINKEDIN_URL}
                   external
-                  className="border-cream/70 text-cream hover:border-bronze hover:text-bronze"
+                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
                 >
                   LinkedIn
                 </ArrowLink>
                 <ArrowLink
                   href={RESUME_URL}
                   external
-                  className="border-cream/70 text-cream hover:border-bronze hover:text-bronze"
+                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
                 >
                   Resume
                 </ArrowLink>
                 <ArrowLink
                   href={WHATSAPP_URL}
                   external
-                  className="border-cream/70 text-cream hover:border-bronze hover:text-bronze"
+                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
                 >
                   WhatsApp
                 </ArrowLink>
