@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { WorkGrade } from "@/components/home/work-data";
 import { YoutubeCardVideo } from "@/components/ui/youtube-card-video";
+import { getLeadEvent, trackEvent } from "@/lib/analytics";
 
 type WorkReelProps = {
   grade: WorkGrade;
@@ -15,6 +16,8 @@ type WorkReelProps = {
   posterSrc?: string;
   /** YouTube Short to embed instead — takes priority over videoSrc. */
   youtubeVideoId?: string;
+  /** Fired on click, before the generic link-based GA4 event — lets callers layer a more specific event (e.g. project_click) on top. */
+  onNavigate?: () => void;
 };
 
 /**
@@ -37,7 +40,16 @@ type WorkReelProps = {
  * gradient placeholder used before. Drop an mp4 URL into a project's
  * `videoSrc` in work-data.ts and it starts playing automatically.
  */
-export function WorkReel({ grade, title, href, ariaLabel, videoSrc, posterSrc, youtubeVideoId }: WorkReelProps) {
+export function WorkReel({
+  grade,
+  title,
+  href,
+  ariaLabel,
+  videoSrc,
+  posterSrc,
+  youtubeVideoId,
+  onNavigate,
+}: WorkReelProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   // Always starts `false` on both server and client — deciding this via a
   // `typeof IntersectionObserver === "undefined"` check in the initializer
@@ -111,6 +123,12 @@ export function WorkReel({ grade, title, href, ariaLabel, videoSrc, posterSrc, y
 
   if (!href) return frame;
 
+  function handleClick() {
+    onNavigate?.();
+    const leadEvent = getLeadEvent(href!);
+    if (leadEvent) trackEvent(leadEvent.name, leadEvent.params);
+  }
+
   return (
     <a
       href={href}
@@ -118,6 +136,7 @@ export function WorkReel({ grade, title, href, ariaLabel, videoSrc, posterSrc, y
       rel="noopener noreferrer"
       aria-label={ariaLabel ?? `Open the case study for ${title}`}
       className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze"
+      onClick={handleClick}
     >
       {frame}
     </a>

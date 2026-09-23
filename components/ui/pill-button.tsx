@@ -1,4 +1,7 @@
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+"use client";
+
+import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from "react";
+import { getLeadEvent, trackEvent } from "@/lib/analytics";
 
 type PillButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
@@ -12,10 +15,20 @@ type PillButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
  * button built for dark sections): this is a lighter-touch "editorial
  * pill" treatment, not a marketing button.
  */
-export function PillButton({ children, className = "", ...props }: PillButtonProps) {
+export function PillButton({ children, className = "", onClick, href, ...props }: PillButtonProps) {
+  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    onClick?.(event);
+    if (href) {
+      const leadEvent = getLeadEvent(href);
+      if (leadEvent) trackEvent(leadEvent.name, leadEvent.params);
+    }
+  }
+
   return (
     <a
       className={`pill-button focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${className}`}
+      href={href}
+      onClick={handleClick}
       {...props}
     >
       <span>{children}</span>

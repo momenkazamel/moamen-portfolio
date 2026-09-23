@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import type { ComponentProps, PointerEvent } from "react";
+import type { ComponentProps, MouseEvent, PointerEvent } from "react";
+import { getLeadEvent, trackEvent } from "@/lib/analytics";
 
 type ArrowLinkProps = ComponentProps<typeof Link> & {
   className?: string;
@@ -32,6 +33,14 @@ export function ArrowLink({ children, className = "", external = false, ...props
 
   const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
+  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    props.onClick?.(event);
+    if (typeof props.href === "string") {
+      const leadEvent = getLeadEvent(props.href);
+      if (leadEvent) trackEvent(leadEvent.name, leadEvent.params);
+    }
+  }
+
   return (
     <motion.div
       className="inline-flex"
@@ -43,6 +52,7 @@ export function ArrowLink({ children, className = "", external = false, ...props
         className={`group inline-flex items-center gap-4 border-b border-current pb-2 text-[0.62rem] font-medium uppercase tracking-[0.25em] transition-[border-color,color] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${className}`}
         {...externalProps}
         {...props}
+        onClick={handleClick}
       >
         <span>{children}</span>
         <span

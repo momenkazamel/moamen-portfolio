@@ -5,6 +5,7 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 import { WorkReel } from "@/components/home/work-reel";
 import { fadeUp, easeEditorial } from "@/components/home/hero.motion";
 import type { Project } from "@/components/home/work-data";
+import { trackEvent } from "@/lib/analytics";
 
 type WorkItemProps = {
   project: Project;
@@ -21,6 +22,13 @@ export function WorkItem({ project, index }: WorkItemProps) {
   const cardAriaLabel = project.reelUrl
     ? `Watch the Instagram Reel for ${project.title}`
     : `Open the case study for ${project.title}`;
+
+  function trackProjectClick() {
+    trackEvent("project_click", {
+      project_title: project.title,
+      project_category: project.category,
+    });
+  }
 
   return (
     <motion.li
@@ -41,6 +49,7 @@ export function WorkItem({ project, index }: WorkItemProps) {
             videoSrc={project.videoSrc}
             posterSrc={project.posterSrc}
             youtubeVideoId={project.youtubeVideoId}
+            onNavigate={trackProjectClick}
           />
         </div>
 
@@ -85,6 +94,7 @@ export function WorkItem({ project, index }: WorkItemProps) {
             <ArrowLink
               href={project.reelUrl}
               external
+              onClick={trackProjectClick}
               className="mt-8 border-ink/70 text-ink hover:border-bronze hover:text-bronze"
             >
               {project.reelLinkLabel ?? "Original Instagram Reel"}
@@ -93,6 +103,7 @@ export function WorkItem({ project, index }: WorkItemProps) {
             <ArrowLink
               href={project.reelHref}
               external
+              onClick={trackProjectClick}
               className="mt-8 border-ink/70 text-ink hover:border-bronze hover:text-bronze"
             >
               Watch Reel

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MonogramMark } from "@/components/ui/monogram-mark";
 import { easeEditorial } from "@/components/home/hero.motion";
+import { trackEvent } from "@/lib/analytics";
 
 const navigation = [
   { href: "#work", label: "Work" },
@@ -191,6 +192,10 @@ export function Navbar() {
     smoothScrollToId(href.slice(1));
   }
 
+  function trackResumeDownload(location: "desktop" | "mobile") {
+    trackEvent("cv_download", { link_url: RESUME_URL, location });
+  }
+
   const isDarkGround = !isScrolled && !isMenuOpen;
   const logoTextClass = isDarkGround ? "text-cream" : "text-ink";
   const menuButtonClass = isMenuOpen
@@ -250,6 +255,7 @@ export function Navbar() {
           href={RESUME_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackResumeDownload("desktop")}
           className="nav-cta hidden items-center gap-2 lg:inline-flex"
         >
           Download Resume
@@ -373,7 +379,10 @@ export function Navbar() {
                   href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={closeMenu}
+                  onClick={() => {
+                    trackResumeDownload("mobile");
+                    closeMenu();
+                  }}
                   className="nav-cta mt-8"
                 >
                   Download Resume
