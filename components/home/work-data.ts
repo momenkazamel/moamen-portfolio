@@ -50,7 +50,7 @@ export const projects: Project[] = [
     description:
       "A cinematic commercial imagining the extraordinary effort hidden behind an ordinary cup of coffee.",
     year: "2026",
-    tags: ["Direction", "AI Pipeline", "Cinematography"],
+    tags: ["Direction", "AI", "Cinematography"],
     grade: "amber",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DSaIGfgDZ7C/",
@@ -65,9 +65,9 @@ export const projects: Project[] = [
     title: "Forgotten, Not Gone.",
     category: "EMOTIONAL STORYTELLING",
     description:
-      "A nostalgic AI short exploring memory, childhood, and the emotional connection we leave behind.",
+      "A nostalgic short exploring memory, childhood, and the emotional connection we leave behind.",
     year: "2025",
-    tags: ["Direction", "AI Pipeline", "Sound Design"],
+    tags: ["Direction", "AI", "Sound Design"],
     grade: "umber",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTA5G05DUGH/",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     description:
       "Iconic fictional characters reimagined through unexpected everyday moments with cinematic realism and subtle humor.",
     year: "2025",
-    tags: ["Direction", "AI Pipeline", "Concept"],
+    tags: ["Direction", "AI", "Concept"],
     grade: "slate",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTFz3M8jT-J/",
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     description:
       "A surreal cinematic journey where impossible transitions transform familiar places into extraordinary destinations.",
     year: "2026",
-    tags: ["Direction", "AI Pipeline", "World Building"],
+    tags: ["Direction", "AI", "World Building"],
     grade: "moss",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DR7dUo2DVWz/",
@@ -103,9 +103,9 @@ export const projects: Project[] = [
     title: "Built to Last.",
     category: "ARCHITECTURAL VISUALIZATION",
     description:
-      "Transforming construction and architectural concepts into cinematic visual stories through AI-powered filmmaking.",
+      "Transforming construction and architectural concepts into cinematic visual stories.",
     year: "2025",
-    tags: ["AI Pipeline", "Visualization", "Direction"],
+    tags: ["AI", "Visualization", "Direction"],
     grade: "slate",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTN4L4pjcsn/",
@@ -116,9 +116,9 @@ export const projects: Project[] = [
     title: "The Frozen Siege.",
     category: "EPIC CINEMATIC",
     description:
-      "An AI-generated medieval battle sequence focused on atmosphere, scale, and cinematic storytelling.",
+      "A medieval battle sequence focused on atmosphere, scale, and cinematic storytelling.",
     year: "2025",
-    tags: ["Direction", "AI Pipeline", "VFX"],
+    tags: ["Direction", "AI", "VFX"],
     grade: "umber",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTialgjDU_r/",

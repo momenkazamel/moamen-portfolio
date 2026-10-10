@@ -23,6 +23,10 @@ export function About() {
         className="absolute -inset-2 bg-cover bg-no-repeat blur-[1.5px] lg:blur-[3px]"
         style={{ backgroundImage: 'url("/images/about-background.png")', backgroundPosition: "120% center" }}
       />
+      {/* Below lg the text spans most of the width and lands on the photo's
+          bright shelf lights, so the whole image gets an extra dark scrim
+          there (same approach as the hero's stronger phone scrim). */}
+      <div aria-hidden="true" className="absolute inset-0 bg-charcoal/60 lg:bg-charcoal/15" />
       <div
         aria-hidden="true"
         className="absolute inset-0"
@@ -52,13 +56,13 @@ export function About() {
           </h2>
 
           <p className="mt-5 max-w-[26rem] text-[0.95rem] leading-[1.75] text-cream/65 sm:mt-6 sm:max-w-[30rem] sm:text-[0.98rem] sm:leading-7 lg:text-lg lg:leading-8">
-            I&apos;m Moamen Kazamel, an AI Creative Director creating cinematic campaigns, AI films, and digital
-            worlds where technology serves the story—not the other way around.
+            I&apos;m Moamen Kazamel, a video editor and creative shaping commercials, brand films, and digital
+            stories where every cut serves the story—not the other way around.
           </p>
 
           <div className="mt-8 flex flex-col gap-2 sm:mt-10">
-            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">AI Creative Director</p>
-            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">AiBrush Studio</p>
+            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Video Editor &amp; Creative</p>
+            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Formerly at AiBrush Studio</p>
           </div>
         </div>
       </div>

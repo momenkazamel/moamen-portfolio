@@ -47,11 +47,11 @@ export function KidsUniverse() {
           </h2>
 
           <p className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-bronze">
-            AI-POWERED EDUCATIONAL STORYTELLING
+            EDUCATIONAL STORYTELLING
           </p>
 
           <p className="mt-6 max-w-md text-[0.98rem] leading-7 text-cream/65 lg:text-lg lg:leading-8">
-            A collection of AI-generated educational animations combining storytelling, music, colorful characters, and cinematic visuals to create engaging learning experiences for children.
+            A collection of educational animations combining storytelling, music, colorful characters, and cinematic visuals to create engaging learning experiences for children.
           </p>
 
           <CtaButton href={YOUTUBE_URL} external className="mt-9">

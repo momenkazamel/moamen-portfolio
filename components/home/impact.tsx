@@ -27,7 +27,7 @@ const stats: ImpactStat[] = [
   {
     value: 200,
     suffix: "+",
-    label: "AI Videos Produced",
+    label: "Videos Produced",
     description: "Across commercial, educational, and social media projects.",
   },
   {

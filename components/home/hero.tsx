@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowLink } from "@/components/ui/arrow-link";
+import { smoothScrollToId } from "@/lib/smooth-scroll";
 import { BackgroundVideo } from "@/components/ui/background-video";
 import { useParallaxPointer } from "@/components/home/use-parallax-pointer";
 import { fadeUp, revealLine, staggerChildren, easeEditorial } from "@/components/home/hero.motion";
@@ -57,7 +58,7 @@ export function Hero() {
           transition={{ duration: 0.7, ease: easeEditorial }}
         >
           <span aria-hidden="true" className="h-px w-11 bg-bronze" />
-          AI creative producer · Est. 2021
+          Video editor &amp; creative · Est. 2021
         </motion.p>
 
         <motion.h1
@@ -93,7 +94,7 @@ export function Hero() {
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >
-          I direct and produce cinematic campaigns, visual identities, and social worlds—with AI as a quiet collaborator.
+          I edit and shape commercials, brand films, and social content—cut for rhythm, built to be watched twice.
         </motion.p>
 
         <motion.div
@@ -101,9 +102,26 @@ export function Hero() {
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >
-          <ArrowLink href="#work" className="border-cream text-cream hover:border-bronze hover:text-bronze">
-            View selected work
-          </ArrowLink>
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-5">
+            <ArrowLink
+              href="#editing"
+              onClick={(event) => {
+                event.preventDefault();
+                smoothScrollToId("editing");
+              }}
+              className="border-cream text-cream hover:border-bronze hover:text-bronze">
+              Video Editing
+            </ArrowLink>
+            <ArrowLink
+              href="#work"
+              onClick={(event) => {
+                event.preventDefault();
+                smoothScrollToId("work");
+              }}
+              className="border-cream/60 text-cream/75 hover:border-bronze hover:text-bronze">
+              AI Films
+            </ArrowLink>
+          </div>
         </motion.div>
       </motion.div>
     </section>

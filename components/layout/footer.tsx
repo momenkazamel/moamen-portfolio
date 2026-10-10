@@ -1,10 +1,10 @@
 import { ArrowLink } from "@/components/ui/arrow-link";
 
 const TOOL_CATEGORIES = [
-  { label: "Video", tools: "Veo 3 · Kling · Runway · Seedance" },
-  { label: "Image", tools: "GPT Image · Nano Banana · FLUX" },
+  { label: "Editing", tools: "Premiere Pro · After Effects · Photoshop · CapCut" },
+  { label: "AI Video", tools: "Veo 3 · Kling · Runway · Seedance" },
+  { label: "AI Image", tools: "GPT Image · Nano Banana · FLUX" },
   { label: "Audio", tools: "ElevenLabs · Suno" },
-  { label: "Editing", tools: "Premiere Pro · CapCut" },
 ];
 
 const EMAIL = "momenkazamel@gmail.com";
@@ -54,23 +54,6 @@ export function Footer() {
                   <p className="mt-1.5 text-[0.85rem] text-cream/50">{category.tools}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-4">
-              <p className="text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/35">Powered by</p>
-              <a
-                href="https://aibrush.co"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-1 inline-flex items-baseline gap-2 border-b border-transparent pb-0.5 pt-2 font-display text-[1.05rem] tracking-[-0.01em] text-bronze transition-[border-color] duration-300 ease-out hover:border-bronze/70 lg:pt-0"
-              >
-                AiBrush Studio
-                <span
-                  aria-hidden="true"
-                  className="text-[0.75rem] leading-none transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                >
-                  ↗
-                </span>
-              </a>
             </div>
 
             <div className="mt-8">

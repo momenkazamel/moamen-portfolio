@@ -7,10 +7,15 @@
   --bronze: #9b6b42;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Must live in the base layer: as an unlayered rule it outranks every
+   Tailwind utility (utilities are layered), which silently zeroed every
+   margin and padding utility class site-wide. */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {
@@ -518,5 +523,29 @@ body {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Horizontal card rows (ScrollRow). Cards start aligned with the .shell's
+ * left edge but the row itself runs to the viewport edge, so the next card
+ * peeks in and signals "scroll for more". The inset mirrors .shell's width
+ * rule: min(100% - 2rem, 90rem), then min(100% - 5rem, 90rem) from 48rem.
+ */
+.scroll-row {
+  --row-inset: max(1rem, calc((100vw - 90rem) / 2));
+  padding-inline: var(--row-inset);
+  scroll-padding-inline: var(--row-inset);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .scroll-row {
+    --row-inset: max(2.5rem, calc((100vw - 90rem) / 2));
   }
 }

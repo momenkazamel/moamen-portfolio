@@ -1,5 +1,5 @@
 import { Hero } from "@/components/home/hero";
-import { Impact } from "@/components/home/impact";
+import { VideoEditing } from "@/components/home/video-editing";
 import { FeaturedWork } from "@/components/home/featured-work";
 import { KidsUniverse } from "@/components/home/kids-universe";
 import { About } from "@/components/home/about";
@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Impact />
+        <VideoEditing />
         <FeaturedWork />
         <KidsUniverse />
         <About />

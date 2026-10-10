@@ -4,8 +4,8 @@ import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 import "./globals.css";
 
 const SITE_URL = "https://moamenkazamel.com";
-const SITE_TITLE = "Moamen Kazamel — Creative Director";
-const SITE_DESCRIPTION = "The portfolio of Moamen Kazamel, independent creative director.";
+const SITE_TITLE = "Moamen Kazamel — Video Editor & Creative";
+const SITE_DESCRIPTION = "The portfolio of Moamen Kazamel, video editor and creative — commercials, brand films, and social content.";
 
 // viewportFit: "cover" is what makes the various env(safe-area-inset-*)
 // values used across the site (navbar, footer, fullscreen mobile menu)
@@ -43,10 +43,10 @@ export const metadata: Metadata = {
       {
         // Cache-busting query param — WhatsApp/LinkedIn/etc. cache OG images
         // by URL and won't re-fetch on their own after an in-place update.
-        url: "/og-image.png?v=2",
+        url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
-        alt: "Moamen Kazamel — AI Creative Director",
+        alt: "Moamen Kazamel — Video Editor & Creative",
       },
     ],
   },
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/og-image.png?v=2"],
+    images: ["/og-image.png?v=3"],
   },
 };
 

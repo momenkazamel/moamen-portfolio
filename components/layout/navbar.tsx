@@ -6,53 +6,17 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MonogramMark } from "@/components/ui/monogram-mark";
 import { easeEditorial } from "@/components/home/hero.motion";
 import { trackEvent } from "@/lib/analytics";
+import { smoothScrollToId } from "@/lib/smooth-scroll";
 
 const navigation = [
-  { href: "#work", label: "Work" },
+  { href: "#editing", label: "Video Editing" },
+  { href: "#work", label: "AI Films" },
   { href: "#kids-universe", label: "Kids Universe" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
 ];
 
 const RESUME_URL = "/documents/Moamen_Kazamel_CV.pdf";
-
-// Matches the site's editorial motion language (a gentler, closed-form
-// cousin of the easeEditorial bezier used elsewhere) so the scroll itself
-// feels considered rather than like a default browser jump.
-function easeInOutCubic(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
-}
-
-function smoothScrollToId(id: string, duration = 900) {
-  const target = document.getElementById(id);
-  if (!target) return;
-
-  const startY = window.scrollY;
-  const targetY = target.getBoundingClientRect().top + startY;
-
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReducedMotion) {
-    window.scrollTo({ top: targetY, behavior: "instant" });
-    return;
-  }
-
-  const startTime = performance.now();
-
-  // `behavior: "instant"` on every frame is deliberate: the page has global
-  // `scroll-behavior: smooth` CSS, and the legacy two-argument `scrollTo(x, y)`
-  // form defaults to `behavior: "auto"`, which respects that CSS and tries to
-  // smoothly animate to each intermediate target itself — fighting this
-  // function's own per-frame easing and producing a stuttery scroll instead
-  // of the intended one.
-  function step(now: number) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo({ top: startY + (targetY - startY) * easeInOutCubic(progress), behavior: "instant" });
-    if (progress < 1) requestAnimationFrame(step);
-  }
-
-  requestAnimationFrame(step);
-}
 
 /**
  * Fixed header — transparent over the hero, gaining a soft cream ground,
@@ -206,10 +170,15 @@ export function Navbar() {
 
   return (
     <header
+      // No backdrop-blur while the menu is open: backdrop-filter makes the
+      // header the containing block for its position:fixed children, which
+      // would trap the fullscreen menu inside the 4.75rem-tall header bar.
       className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ease-out ${
-        isScrolled || isMenuOpen
-          ? "navbar-solid border-b border-ink/15 bg-cream/85 backdrop-blur-md"
-          : "navbar-transparent border-b border-transparent bg-transparent"
+        isMenuOpen
+          ? "navbar-solid border-b border-transparent bg-charcoal"
+          : isScrolled
+            ? "navbar-solid border-b border-ink/15 bg-cream/85 backdrop-blur-md"
+            : "navbar-transparent border-b border-transparent bg-transparent"
       }`}
     >
       <div className="shell flex h-[4.75rem] items-center justify-between lg:h-[5.75rem]">
@@ -233,7 +202,7 @@ export function Navbar() {
                 isDarkGround ? "text-cream/55" : "text-ink/45"
               }`}
             >
-              AI Creative Director
+              Video Editor &amp; Creative
             </span>
           </span>
         </Link>
