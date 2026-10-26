@@ -62,6 +62,18 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "The Country That Never Was.",
+    category: "DOCUMENTARY COLD OPEN",
+    description:
+      "The true story of Poyais — a nation sold to settlers in 1822 that never existed — rebuilt with AI as the cinematic opening of a real-estate documentary series.",
+    year: "2026",
+    tags: ["AI", "Direction", "Editing"],
+    grade: "umber",
+    // Self-hosted 9:16 cut of the episode's AI opening; no public reel to link to yet.
+    videoSrc: "/videos/ai/poyais.mp4",
+    posterSrc: "/images/ai/poyais.jpg",
+  },
+  {
     title: "Forgotten, Not Gone.",
     category: "EMOTIONAL STORYTELLING",
     description:

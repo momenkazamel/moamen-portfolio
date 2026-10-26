@@ -21,6 +21,28 @@ export type EditProject = {
 // actually presses play.
 export const editProjects: EditProject[] = [
   {
+    title: "Football Documentary — Ronaldo",
+    category: "ARABIC YOUTUBE DOCUMENTARY",
+    year: "2026",
+    description:
+      "An 11-minute Arabic football documentary — kinetic typography, stat graphics and archive footage, every cut and caption synced word-for-word to the voice-over.",
+    roles: ["Editing", "Motion Graphics", "Captions", "Sound Design"],
+    format: "landscape",
+    videoSrc: "/videos/editing/football-doc-ronaldo.mp4",
+    posterSrc: "/images/editing/football-doc-ronaldo.jpg",
+  },
+  {
+    title: "Football Documentary — Vinícius",
+    category: "YOUTUBE DOCUMENTARY",
+    year: "2026",
+    description:
+      "A football mystery cut like an investigation — evidence boards, retro-TV archive, data bars and cut-out players, built on a reusable motion-graphics system.",
+    roles: ["Editing", "Motion Graphics", "Cut-outs", "Data Graphics"],
+    format: "landscape",
+    videoSrc: "/videos/editing/football-doc-vinicius.mp4",
+    posterSrc: "/images/editing/football-doc-vinicius.jpg",
+  },
+  {
     title: "Documentary Series — EP 097",
     category: "YOUTUBE DOCUMENTARY",
     year: "2026",
