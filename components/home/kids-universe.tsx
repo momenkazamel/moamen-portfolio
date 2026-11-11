@@ -1,15 +1,10 @@
 import { CtaButton } from "@/components/ui/cta-button";
-import { YoutubeBackgroundVideo } from "@/components/ui/youtube-background-video";
+import { LazyBackgroundVideo } from "@/components/ui/lazy-background-video";
 
 const YOUTUBE_URL = "https://www.youtube.com/@AiBrushForKids";
 
-// Alphabet Song video, looped as the section's background.
-// Segment (15s–35s) is a placeholder guess at a colorful, energetic part —
-// adjust BACKGROUND_VIDEO_START/END below once you've confirmed the right
-// moment in the actual footage.
-const BACKGROUND_VIDEO_ID = "jRpkIwZVtec";
-const BACKGROUND_VIDEO_START = 15;
-const BACKGROUND_VIDEO_END = 35;
+// Alphabet Song video (jRpkIwZVtec, 15s–35s), self-hosted as a 20s muted
+// loop so the section doesn't wait on a YouTube iframe.
 
 /**
  * Compact, single-feature section for the "Kids Universe" side project —
@@ -25,7 +20,7 @@ export function KidsUniverse() {
       aria-labelledby="kids-universe-title"
       className="relative isolate overflow-hidden bg-charcoal text-cream"
     >
-      <YoutubeBackgroundVideo videoId={BACKGROUND_VIDEO_ID} start={BACKGROUND_VIDEO_START} end={BACKGROUND_VIDEO_END} />
+      <LazyBackgroundVideo src="/videos/kids/kids-universe-bg.mp4" posterSrc="/images/kids/kids-universe-bg.jpg" />
       {/* Stronger scrim on phones for readability over the busier video
           frame; unchanged 50% from `lg:` up. */}
       <div aria-hidden="true" className="absolute inset-0 bg-charcoal/65 lg:bg-charcoal/50" />

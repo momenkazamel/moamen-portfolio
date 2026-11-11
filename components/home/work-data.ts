@@ -54,7 +54,8 @@ export const projects: Project[] = [
     grade: "amber",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DSaIGfgDZ7C/",
-    youtubeVideoId: "F3jtg2yI7LU",
+    videoSrc: "/videos/ai/first-sip.mp4",
+    posterSrc: "/images/ai/first-sip.jpg",
     socialProof: {
       value: 7,
       suffix: "M+",
@@ -83,7 +84,8 @@ export const projects: Project[] = [
     grade: "umber",
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTA5G05DUGH/",
-    youtubeVideoId: "qO2DxkXMh84",
+    videoSrc: "/videos/ai/forgotten-not-gone.mp4",
+    posterSrc: "/images/ai/forgotten-not-gone.jpg",
   },
   {
     title: "Ordinary Legends.",
@@ -96,7 +98,8 @@ export const projects: Project[] = [
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTFz3M8jT-J/",
     reelLinkLabel: "View on Instagram",
-    youtubeVideoId: "73k95ys7Oyo",
+    videoSrc: "/videos/ai/ordinary-legends.mp4",
+    posterSrc: "/images/ai/ordinary-legends.jpg",
   },
   {
     title: "Crossing Worlds.",
@@ -109,7 +112,8 @@ export const projects: Project[] = [
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DR7dUo2DVWz/",
     reelLinkLabel: "View on Instagram",
-    youtubeVideoId: "4VaBjHC7Z_0",
+    videoSrc: "/videos/ai/crossing-worlds.mp4",
+    posterSrc: "/images/ai/crossing-worlds.jpg",
   },
   {
     title: "Built to Last.",
@@ -122,7 +126,8 @@ export const projects: Project[] = [
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTN4L4pjcsn/",
     reelLinkLabel: "View on Instagram",
-    youtubeVideoId: "NIehSJYOVZc",
+    videoSrc: "/videos/ai/built-to-last.mp4",
+    posterSrc: "/images/ai/built-to-last.jpg",
   },
   {
     title: "The Frozen Siege.",
@@ -135,6 +140,7 @@ export const projects: Project[] = [
     href: PLACEHOLDER_CASE_STUDY_URL,
     reelUrl: "https://www.instagram.com/p/DTialgjDU_r/",
     reelLinkLabel: "View on Instagram",
-    youtubeVideoId: "kPcTC8xnlcQ",
+    videoSrc: "/videos/ai/frozen-siege.mp4",
+    posterSrc: "/images/ai/frozen-siege.jpg",
   },
 ];

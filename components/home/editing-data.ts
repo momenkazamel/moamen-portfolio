@@ -21,6 +21,39 @@ export type EditProject = {
 // actually presses play.
 export const editProjects: EditProject[] = [
   {
+    title: "Real Estate Series — Abu Dhabi",
+    category: "ARABIC YOUTUBE SERIES",
+    year: "2026",
+    description:
+      "A 16-minute real-estate investigation for an Arabic YouTube host — on-location presenting, news-style archive, sales-figure graphics and drone B-roll cut into one market story.",
+    roles: ["Editing", "Motion Graphics", "Data Graphics", "Sound Design"],
+    format: "landscape",
+    videoSrc: "/videos/editing/realestate-abu-dhabi.mp4",
+    posterSrc: "/images/editing/realestate-abu-dhabi.jpg",
+  },
+  {
+    title: "Football Documentary — United Youth",
+    category: "ENGLISH YOUTUBE DOCUMENTARY",
+    year: "2026",
+    description:
+      "An 11-minute English documentary on Manchester United's academy — archive footage, animated quote cards and kinetic captions that land on every name.",
+    roles: ["Editing", "Motion Graphics", "Archive", "Captions"],
+    format: "landscape",
+    videoSrc: "/videos/editing/football-doc-united-youth.mp4",
+    posterSrc: "/images/editing/football-doc-united-youth.jpg",
+  },
+  {
+    title: "From Render to Reality",
+    category: "INTERIOR DESIGN REEL",
+    year: "2026",
+    description:
+      "A reel for an interior-design studio — a printed render held up on site dissolves into the finished space, with Arabic titles timed to each reveal.",
+    roles: ["Editing", "AI Transitions", "Animated Titles"],
+    format: "portrait",
+    videoSrc: "/videos/editing/zad-render-to-place.mp4",
+    posterSrc: "/images/editing/zad-render-to-place.jpg",
+  },
+  {
     title: "Football Documentary — Ronaldo",
     category: "ARABIC YOUTUBE DOCUMENTARY",
     year: "2026",
