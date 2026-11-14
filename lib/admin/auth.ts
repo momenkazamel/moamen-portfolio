@@ -20,9 +20,17 @@ export const SESSION_DAYS = 30;
 type Config = { user: string; passHash: string; secret: string };
 
 function config(): Config | null {
-  const user = process.env.ADMIN_USER;
-  const passHash = process.env.ADMIN_PASS_HASH;
-  const secret = process.env.ADMIN_SECRET;
+  // Values pasted into the Vercel dashboard often pick up stray spaces,
+  // quotes or even the "NAME=" prefix — tolerate all of those.
+  const read = (name: string) =>
+    (process.env[name] || "")
+      .trim()
+      .replace(new RegExp(`^${name}=`), "")
+      .replace(/^["']|["']$/g, "")
+      .trim();
+  const user = read("ADMIN_USER");
+  const passHash = read("ADMIN_PASS_HASH");
+  const secret = read("ADMIN_SECRET");
   if (!user || !passHash || !secret || secret.length < 32) return null;
   return { user, passHash, secret };
 }
