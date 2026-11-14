@@ -1,4 +1,4 @@
-import { checkCredentials, credentialReport, createSession, isConfigured, json, sameOrigin, SESSION_DAYS, sessionCookie } from "@/lib/admin/auth";
+import { checkCredentials, createSession, isConfigured, json, sameOrigin, SESSION_DAYS, sessionCookie } from "@/lib/admin/auth";
 import { clearFailures, clientIp, isLocked, recordFailure } from "@/lib/admin/limit";
 import { storageConfigured } from "@/lib/admin/store";
 
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
   if (!checkCredentials(user, pass)) {
     await recordFailure(ip);
-    return json({ error: "wrong", report: credentialReport(user, pass) }, 401);
+    return json({ error: "wrong" }, 401);
   }
   await clearFailures(ip);
   return json({ ok: true }, 200, { "Set-Cookie": sessionCookie(createSession(), SESSION_DAYS * 86400) });

@@ -1,4 +1,4 @@
-import { createHash, createHmac, scryptSync, timingSafeEqual } from "node:crypto";
+import { createHmac, scryptSync, timingSafeEqual } from "node:crypto";
 
 /*
  * Single-owner login for /admin.
@@ -60,23 +60,6 @@ export function checkCredentials(user: string, pass: string) {
   const passOk = timingSafeEqual(got, expected);
   const userOk = safeEqual(user.trim().toLowerCase(), c.user.trim().toLowerCase());
   return passOk && userOk;
-}
-
-/** TEMPORARY login diagnostic: which half failed + a short, non-reversible fingerprint of what arrived. */
-export function credentialReport(user: string, pass: string) {
-  const c = config();
-  if (!c) return { configured: false };
-  const [, saltHex, hashHex] = c.passHash.split(":");
-  const expected = Buffer.from(hashHex || "", "hex");
-  const got = scryptSync(pass, Buffer.from(saltHex || "", "hex"), expected.length || 32);
-  const fp = (v: string) => createHash("sha256").update(v).digest("hex").slice(0, 4);
-  return {
-    userOk: safeEqual(user.trim().toLowerCase(), c.user.trim().toLowerCase()),
-    passOk: expected.length === got.length && timingSafeEqual(got, expected),
-    passLength: [...pass].length,
-    passPrint: fp(pass),
-    userPrint: fp(user.trim().toLowerCase()),
-  };
 }
 
 function signingKey(c: Config) {

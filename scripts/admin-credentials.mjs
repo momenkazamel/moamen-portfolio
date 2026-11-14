@@ -33,6 +33,10 @@ if (pass !== again) {
   console.error("Passwords don't match.");
   process.exit(1);
 }
+if (/[^\x20-\x7E]/.test(pass)) {
+  console.error("The password has non-English characters — is the keyboard set to Arabic? Switch to English (Ctrl+Space) and run this again.");
+  process.exit(1);
+}
 if (pass.length < 10) {
   console.error("Use at least 10 characters.");
   process.exit(1);

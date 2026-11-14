@@ -66,7 +66,7 @@ f.addEventListener('submit',async e=>{
   try{
     const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:f.user.value,pass:f.pass.value}),credentials:'same-origin'});
     if(r.ok){location.replace('/admin'+location.hash);return}
-    const j=await r.json().catch(()=>({}));err.textContent=MSG[j.error]||'حصلت مشكلة. جرّب تاني.';if(j.report){const r=j.report;err.textContent+=` [user ${r.userOk?'OK':'✗'} ${r.userPrint} · pass ${r.passOk?'OK':'✗'} ${r.passPrint} · ${r.passLength} chars]`}f.pass.value='';f.pass.focus();
+    const j=await r.json().catch(()=>({}));err.textContent=MSG[j.error]||'حصلت مشكلة. جرّب تاني.';f.pass.value='';f.pass.focus();
   }catch{err.textContent='مفيش اتصال. اتأكد من النت.'}
   go.disabled=false;
 });
