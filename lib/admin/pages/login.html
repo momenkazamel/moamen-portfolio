@@ -31,6 +31,7 @@ button{font:600 1rem "IBM Plex Sans Arabic",Arial,sans-serif;margin-top:8px;bord
 button:hover{background:var(--bronze);border-color:var(--bronze);color:var(--cream)}
 button:disabled{opacity:.5;cursor:wait}
 button:focus-visible,input:focus-visible{outline:2px solid var(--bronze-hi);outline-offset:3px}
+.pw{position:relative;display:block}.pw input{width:100%;padding-left:56px}#eye{position:absolute;left:0;bottom:6px;margin:0;padding:4px 10px;font-size:.75rem;background:transparent;color:color-mix(in srgb,var(--cream) 60%,transparent);border:1px solid color-mix(in srgb,var(--cream) 25%,transparent)}#eye:hover{background:transparent;color:var(--cream);border-color:var(--cream)}
 .err{min-height:1.4em;color:var(--rust);font-size:.88rem}
 .setup{color:var(--bronze-hi);font-size:.88rem;border:1px solid color-mix(in srgb,var(--bronze) 50%,transparent);border-radius:10px;padding:10px 12px}
 footer{font-size:.75rem;color:color-mix(in srgb,var(--cream) 30%,transparent)}
@@ -50,7 +51,7 @@ footer a{color:inherit}
   <!--SETUP-->
   <form id="f" autocomplete="on">
     <label>اسم المستخدم<input name="user" autocomplete="username" required autocapitalize="none" spellcheck="false"></label>
-    <label>الباسورد<input name="pass" type="password" autocomplete="current-password" required></label>
+    <label>الباسورد<span class="pw"><input name="pass" type="password" autocomplete="current-password" required><button type="button" id="eye" aria-label="اظهر الباسورد">اظهر</button></span></label>
     <div class="err" id="err" role="alert"></div>
     <button type="submit" id="go">ادخل</button>
   </form>
@@ -58,6 +59,7 @@ footer a{color:inherit}
 </main>
 <script>
 const f=document.getElementById('f'),err=document.getElementById('err'),go=document.getElementById('go');
+document.getElementById('eye').onclick=e=>{const p=f.pass,show=p.type==='password';p.type=show?'text':'password';e.target.textContent=show?'اخفي':'اظهر'};
 const MSG={wrong:'اسم المستخدم أو الباسورد غلط.',locked:'محاولات غلط كتير. استنى ربع ساعة وجرّب تاني.',not_configured:'اللوحة لسه محتاجة إعداد على Vercel.'};
 f.addEventListener('submit',async e=>{
   e.preventDefault();err.textContent='';go.disabled=true;
