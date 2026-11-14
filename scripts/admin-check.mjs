@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Checks locally whether a password matches an ADMIN_PASS_HASH value,
 // without sending anything anywhere:  node scripts/admin-check.mjs
-import { createHash, scryptSync, timingSafeEqual } from "node:crypto";
+import { scryptSync, timingSafeEqual } from "node:crypto";
 import { createInterface } from "node:readline";
 
 function ask(q, hidden) {
