@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Checks locally whether a password matches an ADMIN_PASS_HASH value,
 // without sending anything anywhere:  node scripts/admin-check.mjs
-import { scryptSync, timingSafeEqual } from "node:crypto";
+import { createHash, scryptSync, timingSafeEqual } from "node:crypto";
 import { createInterface } from "node:readline";
 
 function ask(q, hidden) {
@@ -21,3 +21,5 @@ if (scheme !== "scrypt" || !/^[0-9a-f]{32}$/.test(salt || "") || !/^[0-9a-f]{64}
 }
 const ok = timingSafeEqual(scryptSync(pass, Buffer.from(salt, "hex"), 32), Buffer.from(hash, "hex"));
 console.log(ok ? "✓ Password matches this hash." : "✗ Password does NOT match this hash.");
+const fp = (v) => createHash("sha256").update(v).digest("hex").slice(0, 4);
+console.log(`Fingerprint: user moamen ${fp("moamen")} · pass ${fp(pass)} · ${[...pass].length} chars`);
