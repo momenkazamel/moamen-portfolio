@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  /* MK palette: neutral paper + near-black, one "tally light" red accent
-     (the red REC/on-air lamp of an edit suite). Replaces the old bronze. */
+  /* MK palette: neutral paper + near-black. Primary accent is the deep
+     anodized burgundy of the iPhone 18 Pro (--signal, replaces the old
+     orange-red); --wine is the second, darker burgundy for fills, glows
+     and backgrounds. */
   --cream: #ebe8e2;
   --ink: #141413;
   --charcoal: #0d0d0c;
-  --signal: #d9402a;
-  --signal-rgb: 217, 64, 42;
+  --signal: #9b2d46;
+  --signal-rgb: 155, 45, 70;
+  --wine: #5a1424;
+  --wine-rgb: 90, 20, 36;
 }
 
 /* Must live in the base layer: as an unlayered rule it outranks every
@@ -35,6 +39,7 @@ body {
   --color-cream: var(--cream);
   --color-ink: var(--ink);
   --color-signal: var(--signal);
+  --color-wine: var(--wine);
   --color-charcoal: var(--charcoal);
   --font-display: var(--font-body), Arial, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
@@ -640,7 +645,7 @@ body {
 .group:hover .edit-play,
 .edit-frame:focus-visible .edit-play,
 button:hover > .edit-play {
-  background: var(--signal);
+  background: var(--wine);
   border-color: var(--signal);
   transform: scale(1.06);
 }
@@ -692,4 +697,116 @@ button:hover > .edit-play {
 .cinema-ctl:hover,
 .cinema-ctl:focus-visible {
   color: var(--signal);
+}
+
+/* Anodized-metal burgundy for big display words: a brushed sheen across
+   the iPhone burgundy so it stays readable on the near-black ground. */
+.text-burgundy-metal {
+  background: linear-gradient(100deg, #b8405c 0%, #8a2540 38%, #c95571 55%, #7a1f37 78%, #a8344f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Timeline reel (editing section). --reel-h is the shared clip height:
+ * landscape and portrait cuts sit on one line like clips on a timeline.
+ */
+.reel-track {
+  --reel-h: min(40svh, 78vw * 9 / 16, 30rem);
+  will-change: transform;
+}
+
+.reel-card {
+  filter: grayscale(0.7) brightness(0.55);
+  height: var(--reel-h);
+  opacity: 0.55;
+  transform: scale(0.86);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), filter 700ms ease, opacity 700ms ease;
+}
+
+.reel-card-landscape { width: calc(var(--reel-h) * 16 / 9); }
+.reel-card-portrait { width: calc(var(--reel-h) * 9 / 16); }
+
+.reel-card.is-active {
+  filter: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reel-card .reel-play {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 500ms ease, transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reel-card.is-active .reel-play {
+  opacity: 1;
+  transform: none;
+}
+
+.reel-card.is-active .edit-corner {
+  opacity: 1;
+}
+
+.reel-playhead-line {
+  background: linear-gradient(180deg, var(--signal), rgba(var(--signal-rgb), 0.35));
+  box-shadow: 0 0 14px rgba(var(--signal-rgb), 0.55);
+}
+
+.reel-playhead-badge {
+  background: var(--wine);
+  border: 1px solid var(--signal);
+  color: var(--cream);
+}
+
+.reel-playhead-badge::after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--signal);
+  bottom: -6px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.reel-cta {
+  background: var(--wine);
+  border: 1px solid var(--signal);
+  color: var(--cream);
+  transition: background-color 300ms ease, box-shadow 300ms ease;
+}
+
+.reel-cta:hover,
+.reel-cta:focus-visible {
+  background: var(--signal);
+  box-shadow: 0 0 24px rgba(var(--signal-rgb), 0.35);
+}
+
+.reel-clip {
+  align-items: center;
+  background: color-mix(in srgb, var(--cream) 9%, transparent);
+  border-radius: 2px;
+  color: color-mix(in srgb, var(--cream) 45%, transparent);
+  display: flex;
+  flex-basis: 0;
+  min-width: 0;
+  overflow: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+.reel-clip:hover {
+  background: color-mix(in srgb, var(--cream) 18%, transparent);
+}
+
+.reel-clip.is-active {
+  background: var(--wine);
+  box-shadow: inset 0 0 0 1px var(--signal);
+  color: var(--cream);
+}
+
+.reel-mini-playhead {
+  background: var(--signal);
+  box-shadow: 0 0 8px rgba(var(--signal-rgb), 0.8);
 }

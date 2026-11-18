@@ -85,7 +85,7 @@ export function Hero() {
           </span>
           <span aria-hidden="true" className="reveal-line" style={line2Settled ? { overflow: "visible" } : undefined}>
             <motion.span
-              className="block text-signal"
+              className="block text-burgundy-metal"
               variants={revealLine}
               transition={{ duration: 1.05, ease: easeEditorial }}
               onAnimationComplete={() => setLine2Settled(true)}

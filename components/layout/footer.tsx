@@ -35,7 +35,7 @@ export function Footer() {
           <div>
             <h2 className="font-display text-[clamp(1.65rem,4.07vw,3.7rem)] leading-[1.1] tracking-[-0.005em]">
               <span className="block">Got footage?</span>
-              <span className="block text-signal">Send it over.</span>
+              <span className="block text-burgundy-metal">Send it over.</span>
             </h2>
             <p className="mt-6 max-w-lg text-[0.98rem] leading-7 text-cream/60 lg:text-lg lg:leading-8">
               One-off edits and monthly packages, in Arabic and English. Send a raw clip and you get a
