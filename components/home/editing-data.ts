@@ -10,6 +10,8 @@ export type EditProject = {
   roles: string[];
   /** 16:9 (YouTube, courses, ads) or 9:16 (Reels, TikTok, Shorts). Drives the card's aspect ratio and grid width. */
   format: EditFormat;
+  /** Length of the self-hosted excerpt, shown on the card as timecode (mm:ss). */
+  runtime: string;
   /** Self-hosted, web-compressed cut under /public/videos/editing (H.264, faststart). */
   videoSrc: string;
   posterSrc: string;
@@ -28,6 +30,7 @@ export const editProjects: EditProject[] = [
       "A 16-minute real-estate investigation for an Arabic YouTube host: on-location presenting, news-style archive, sales-figure graphics and drone B-roll cut into one market story.",
     roles: ["Editing", "Motion Graphics", "Data Graphics", "Sound Design"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/realestate-abu-dhabi.mp4",
     posterSrc: "/images/editing/realestate-abu-dhabi.jpg",
   },
@@ -39,6 +42,7 @@ export const editProjects: EditProject[] = [
       "An 11-minute English documentary on Manchester United's academy: archive footage, animated quote cards and kinetic captions that land on every name.",
     roles: ["Editing", "Motion Graphics", "Archive", "Captions"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/football-doc-united-youth.mp4",
     posterSrc: "/images/editing/football-doc-united-youth.jpg",
   },
@@ -50,6 +54,7 @@ export const editProjects: EditProject[] = [
       "A reel for an interior-design studio: a printed render held up on site dissolves into the finished space, with Arabic titles timed to each reveal.",
     roles: ["Editing", "AI Transitions", "Animated Titles"],
     format: "portrait",
+    runtime: "00:22",
     videoSrc: "/videos/editing/zad-render-to-place.mp4",
     posterSrc: "/images/editing/zad-render-to-place.jpg",
   },
@@ -61,6 +66,7 @@ export const editProjects: EditProject[] = [
       "An 11-minute Arabic football documentary: kinetic typography, stat graphics and archive footage, every cut and caption synced word-for-word to the voice-over.",
     roles: ["Editing", "Motion Graphics", "Captions", "Sound Design"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/football-doc-ronaldo.mp4",
     posterSrc: "/images/editing/football-doc-ronaldo.jpg",
   },
@@ -72,6 +78,7 @@ export const editProjects: EditProject[] = [
       "A football mystery cut like an investigation: evidence boards, retro-TV archive, data bars and cut-out players, built on a reusable motion-graphics system.",
     roles: ["Editing", "Motion Graphics", "Cut-outs", "Data Graphics"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/football-doc-vinicius.mp4",
     posterSrc: "/images/editing/football-doc-vinicius.jpg",
   },
@@ -83,6 +90,7 @@ export const editProjects: EditProject[] = [
       "A geopolitics explainer cut like a documentary: chapter title cards, map animations, cinematic B-roll and data graphics woven around the host.",
     roles: ["Editing", "Motion Graphics", "B-roll", "Sound"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/documentary-ep097.mp4",
     posterSrc: "/images/editing/documentary-ep097.jpg",
   },
@@ -94,6 +102,7 @@ export const editProjects: EditProject[] = [
       "A 90-second football story built for retention: word-synced Arabic captions and player cut-outs that appear the moment each name is spoken.",
     roles: ["Editing", "Captions", "Cut-outs"],
     format: "portrait",
+    runtime: "01:29",
     videoSrc: "/videos/editing/football-reel.mp4",
     posterSrc: "/images/editing/football-reel.jpg",
   },
@@ -105,6 +114,7 @@ export const editProjects: EditProject[] = [
       "A 22-minute German course episode cut into a tight, fast lesson: section title cards, colour-coded bilingual on-screen text, and icons that land on every key word.",
     roles: ["Editing", "Motion Graphics", "Bilingual Captions"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/deutsch-kurs-ep01.mp4",
     posterSrc: "/images/editing/deutsch-kurs-ep01.jpg",
   },
@@ -116,6 +126,7 @@ export const editProjects: EditProject[] = [
       "A short promo for a medical-licensing consultancy: punchy animated headlines, synced captions and a branded end card, built for Reels.",
     roles: ["Editing", "Animated Titles", "Captions"],
     format: "portrait",
+    runtime: "00:47",
     videoSrc: "/videos/editing/german-board.mp4",
     posterSrc: "/images/editing/german-board.jpg",
   },
@@ -127,6 +138,7 @@ export const editProjects: EditProject[] = [
       "A vocabulary lesson told as a story: illustrated scenes in a parchment frame, with bilingual word cards that pop in exactly as each word is taught.",
     roles: ["Editing", "Vocabulary Cards", "Visual Storytelling"],
     format: "landscape",
+    runtime: "01:00",
     videoSrc: "/videos/editing/vocab-unit-one.mp4",
     posterSrc: "/images/editing/vocab-unit-one.jpg",
   },
