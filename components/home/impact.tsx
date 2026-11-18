@@ -72,7 +72,7 @@ export function Impact() {
             >
               <dt className="flex flex-col items-start">
                 <span className="font-display text-[clamp(2.75rem,10vw,3.5rem)] leading-none tracking-[-0.02em] md:text-[clamp(3.25rem,7vw,4rem)] lg:text-[clamp(4.5rem,6vw,5.5rem)]">
-                  <CountUp value={stat.value} suffix={stat.suffix} suffixClassName="text-bronze" />
+                  <CountUp value={stat.value} suffix={stat.suffix} suffixClassName="text-signal" />
                 </span>
                 <span className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.24em] text-cream/70">
                   {stat.label}

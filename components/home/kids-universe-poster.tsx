@@ -48,7 +48,7 @@ export function KidsUniversePoster({ href, videoId }: KidsUniversePosterProps) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Watch Kids Universe on YouTube"
-      className="group relative mx-auto block w-full max-w-[23rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze lg:mx-0 lg:w-[82%] lg:max-w-none"
+      className="group relative mx-auto block w-full max-w-[23rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal lg:mx-0 lg:w-[82%] lg:max-w-none"
     >
       <div
         ref={frameRef}

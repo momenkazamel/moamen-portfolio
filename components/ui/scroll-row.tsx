@@ -49,8 +49,8 @@ export function ScrollRow({ children, label, tone = "dark" }: ScrollRowProps) {
 
   const buttonClass =
     tone === "dark"
-      ? "border-cream/25 text-cream hover:border-bronze hover:text-bronze"
-      : "border-ink/20 text-ink hover:border-bronze hover:text-bronze";
+      ? "border-cream/25 text-cream hover:border-signal hover:text-signal"
+      : "border-ink/20 text-ink hover:border-signal hover:text-signal";
 
   return (
     <div>

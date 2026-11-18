@@ -17,9 +17,9 @@ export default function Home() {
       <main>
         <Hero />
         <VideoEditing />
+        <About />
         <FeaturedWork />
         <KidsUniverse />
-        <About />
         <Footer />
       </main>
     </>

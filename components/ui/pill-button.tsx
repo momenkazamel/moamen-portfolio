@@ -10,7 +10,7 @@ type PillButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 /**
  * Quiet outline pill CTA for light sections — transparent by default, a
- * faint bronze tint plus a brighter border on hover. Distinct from
+ * faint signal tint plus a brighter border on hover. Distinct from
  * `ArrowLink` (an underlined text link) and `CtaButton` (a solid-fill
  * button built for dark sections): this is a lighter-touch "editorial
  * pill" treatment, not a marketing button.
@@ -26,7 +26,7 @@ export function PillButton({ children, className = "", onClick, href, ...props }
 
   return (
     <a
-      className={`pill-button focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${className}`}
+      className={`pill-button focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${className}`}
       href={href}
       onClick={handleClick}
       {...props}

@@ -26,7 +26,7 @@ export function ShowreelPreview({ x, y }: ShowreelPreviewProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Watch the full showreel on YouTube"
-          className="showreel-frame block aspect-[4/5] overflow-hidden bg-[#15120f] shadow-[0_26px_65px_rgba(0,0,0,0.38)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze"
+          className="showreel-frame block aspect-[4/5] overflow-hidden bg-[#15120f] shadow-[0_26px_65px_rgba(0,0,0,0.38)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
         >
           <div aria-hidden="true" className="showreel-canvas absolute inset-0" />
           <YoutubeCardVideo
@@ -43,12 +43,12 @@ export function ShowreelPreview({ x, y }: ShowreelPreviewProps) {
             <span>Muted</span>
           </div>
           <span className="absolute inset-0 grid place-items-center">
-            <span className="showreel-play grid h-[3.65rem] w-[3.65rem] place-items-center rounded-full border-[0.5px] border-bronze/80 bg-charcoal/30 pl-0.5 text-[0.7rem] text-bronze backdrop-blur-md">
+            <span className="showreel-play grid h-[3.65rem] w-[3.65rem] place-items-center rounded-full border-[0.5px] border-signal/80 bg-charcoal/30 pl-0.5 text-[0.7rem] text-signal backdrop-blur-md">
               ▶
             </span>
           </span>
           <div aria-hidden="true" className="absolute inset-x-7 bottom-[3.7rem] h-px bg-cream/15">
-            <span className="block h-px w-[28%] bg-bronze/75" />
+            <span className="block h-px w-[28%] bg-signal/75" />
           </div>
           <figcaption className="absolute inset-x-7 bottom-7 flex items-end justify-between text-[0.54rem] font-medium uppercase tracking-[0.24em] text-cream/60">
             <span>Autoplay · Loop</span>

@@ -1,11 +1,25 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 import "./globals.css";
 
 const SITE_URL = "https://moamenkazamel.com";
-const SITE_TITLE = "Moamen Kazamel — Video Editor & Creative";
-const SITE_DESCRIPTION = "The portfolio of Moamen Kazamel, video editor and creative — commercials, brand films, and social content.";
+const SITE_TITLE = "Moamen Kazamel · Video Editor";
+const SITE_DESCRIPTION =
+  "Moamen Kazamel (MK), a video editor from Egypt. YouTube documentaries, real-estate series, courses and reels in Arabic and English.";
+
+// Archivo carries both body and display (display uses its condensed width
+// axis, see .font-display). Plex Mono is for labels and timecode; Plex Sans
+// Arabic for Arabic lines.
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-body", display: "swap" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "600"],
+  variable: "--font-plex-arabic",
+  display: "swap",
+});
 
 // viewportFit: "cover" is what makes the various env(safe-area-inset-*)
 // values used across the site (navbar, footer, fullscreen mobile menu)
@@ -13,7 +27,7 @@ const SITE_DESCRIPTION = "The portfolio of Moamen Kazamel, video editor and crea
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#100e0c",
+  themeColor: "#0d0d0c",
   viewportFit: "cover",
 };
 
@@ -46,7 +60,7 @@ export const metadata: Metadata = {
         url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
-        alt: "Moamen Kazamel — Video Editor & Creative",
+        alt: SITE_TITLE,
       },
     ],
   },
@@ -66,7 +80,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full antialiased"
+      className={`h-full antialiased ${archivo.variable} ${plexMono.variable} ${plexArabic.variable}`}
     >
       <body className="min-h-full flex flex-col">
         {children}

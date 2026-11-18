@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f1ede5;
-  --ink: #1c1a17;
-  --charcoal: #100e0c;
-  --bronze: #9b6b42;
+  /* MK palette: neutral paper + near-black, one "tally light" red accent
+     (the red REC/on-air lamp of an edit suite). Replaces the old bronze. */
+  --cream: #ebe8e2;
+  --ink: #141413;
+  --charcoal: #0d0d0c;
+  --signal: #d9402a;
+  --signal-rgb: 217, 64, 42;
 }
 
 /* Must live in the base layer: as an unlayered rule it outranks every
@@ -25,18 +28,24 @@ html {
 body {
   background: var(--cream);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), "IBM Plex Sans Arabic", Arial, sans-serif;
 }
 
 @theme inline {
   --color-cream: var(--cream);
   --color-ink: var(--ink);
-  --color-bronze: var(--bronze);
+  --color-signal: var(--signal);
   --color-charcoal: var(--charcoal);
-  --font-display: Georgia, "Times New Roman", serif;
+  --font-display: var(--font-body), Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-arabic: var(--font-plex-arabic), sans-serif;
 }
 
+/* Display type: Archivo pushed to its condensed width, like film credits
+   and slate cards, instead of the default editorial serif. */
 .font-display {
+  font-stretch: 68%;
+  font-weight: 600;
   font-feature-settings: "liga" 1, "kern" 1;
   font-kerning: normal;
   font-synthesis: none;
@@ -69,7 +78,7 @@ body {
 }
 
 ::selection {
-  background: var(--bronze);
+  background: var(--signal);
   color: var(--cream);
 }
 
@@ -84,11 +93,42 @@ body {
 
 .eyebrow {
   color: color-mix(in srgb, var(--ink) 65%, transparent);
-  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.08em;
   line-height: 1.3;
   text-transform: uppercase;
+}
+
+/* Section markers: the leading hairline becomes a small "REC" lamp. */
+.eyebrow > span[aria-hidden="true"]:first-child {
+  background: var(--signal);
+  border-radius: 9999px;
+  flex: none;
+  height: 0.42rem;
+  width: 0.42rem;
+}
+
+.rec-lamp {
+  animation: rec-blink 1.6s steps(1, end) infinite;
+  background: var(--signal);
+  border-radius: 9999px;
+  box-shadow: 0 0 0.6rem rgba(var(--signal-rgb), 0.55);
+  display: inline-block;
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+@keyframes rec-blink {
+  0%, 70% { opacity: 1; }
+  71%, 100% { opacity: 0.25; }
+}
+
+.timecode {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
 }
 
 .hero-eyebrow {
@@ -107,7 +147,7 @@ body {
 }
 
 .nav-link::after {
-  background: var(--bronze);
+  background: var(--signal);
   bottom: -0.55rem;
   content: "";
   height: 1px;
@@ -121,7 +161,7 @@ body {
 
 .nav-link:hover,
 .nav-link:focus-visible {
-  color: var(--bronze);
+  color: var(--signal);
 }
 
 .nav-link:hover::after,
@@ -157,7 +197,7 @@ body {
 
 .navbar-transparent .nav-link:hover,
 .navbar-transparent .nav-link:focus-visible {
-  color: var(--bronze);
+  color: var(--signal);
 }
 
 .navbar-transparent .nav-cta {
@@ -175,7 +215,7 @@ body {
 /* Premium filled-on-hover CTA button (dark-section counterpart to .nav-cta). */
 .cta-button {
   align-items: center;
-  border: 1px solid var(--bronze);
+  border: 1px solid var(--signal);
   color: var(--cream);
   display: inline-flex;
   font-size: 0.68rem;
@@ -189,8 +229,8 @@ body {
 
 .cta-button:hover,
 .cta-button:focus-visible {
-  background-color: var(--bronze);
-  border-color: var(--bronze);
+  background-color: var(--signal);
+  border-color: var(--signal);
   color: var(--charcoal);
 }
 
@@ -208,7 +248,7 @@ body {
 .pill-button {
   align-items: center;
   background-color: transparent;
-  border: 1px solid var(--bronze);
+  border: 1px solid var(--signal);
   border-radius: 9999px;
   color: var(--ink);
   display: inline-flex;
@@ -223,8 +263,8 @@ body {
 
 .pill-button:hover,
 .pill-button:focus-visible {
-  background-color: color-mix(in srgb, var(--bronze) 7%, transparent);
-  border-color: color-mix(in srgb, var(--bronze) 85%, var(--cream) 15%);
+  background-color: color-mix(in srgb, var(--signal) 7%, transparent);
+  border-color: color-mix(in srgb, var(--signal) 85%, var(--cream) 15%);
 }
 
 .pill-button-arrow {
@@ -251,11 +291,11 @@ body {
 
 .showreel-link:hover,
 .showreel-link:focus-visible {
-  color: var(--bronze);
+  color: var(--signal);
 }
 
 .hero-glow {
-  background: radial-gradient(circle, rgba(155, 107, 66, 0.13), rgba(155, 107, 66, 0.035) 35%, transparent 69%);
+  background: radial-gradient(circle, rgba(var(--signal-rgb), 0.13), rgba(var(--signal-rgb), 0.035) 35%, transparent 69%);
   /* Lighter blur radius and no continuous animation below `lg:` — this
      ambient glow is mostly hidden behind the video/text on small screens
      anyway, so it's not worth the GPU cost of a large blur + infinite
@@ -272,7 +312,7 @@ body {
 }
 
 .hero-vignette {
-  background: radial-gradient(ellipse 72% 86% at 47% 44%, transparent 36%, rgba(3, 2, 1, 0.14) 100%), linear-gradient(112deg, rgba(155, 107, 66, 0.035), transparent 42%);
+  background: radial-gradient(ellipse 72% 86% at 47% 44%, transparent 36%, rgba(3, 2, 1, 0.14) 100%), linear-gradient(112deg, rgba(var(--signal-rgb), 0.035), transparent 42%);
 }
 
 .showreel-frame {
@@ -282,8 +322,8 @@ body {
 }
 
 .showreel-frame:hover {
-  border-color: color-mix(in srgb, var(--bronze) 65%, transparent);
-  box-shadow: 0 38px 92px rgba(0, 0, 0, 0.54), 0 0 0 1px rgba(155, 107, 66, 0.08);
+  border-color: color-mix(in srgb, var(--signal) 65%, transparent);
+  box-shadow: 0 38px 92px rgba(0, 0, 0, 0.54), 0 0 0 1px rgba(var(--signal-rgb), 0.08);
   transform: translateY(-0.4rem) scale(1.006);
 }
 
@@ -293,7 +333,7 @@ body {
 
 .showreel-canvas {
   background:
-    radial-gradient(ellipse at 70% 24%, rgba(177, 117, 69, 0.32), transparent 15%),
+    radial-gradient(ellipse at 70% 24%, rgba(var(--signal-rgb), 0.32), transparent 15%),
     radial-gradient(ellipse at 26% 75%, rgba(111, 71, 41, 0.2), transparent 31%),
     linear-gradient(135deg, #292019 0%, #16110e 49%, #0c0b09 100%);
   transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 900ms ease;
@@ -325,13 +365,13 @@ body {
 }
 
 .showreel-play {
-  box-shadow: 0 0 1.25rem rgba(155, 107, 66, 0.14);
+  box-shadow: 0 0 1.25rem rgba(var(--signal-rgb), 0.14);
   position: relative;
   transition: background-color 400ms ease, border-color 400ms ease, box-shadow 400ms ease, color 400ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .showreel-play::after {
-  border: 0.5px solid rgba(155, 107, 66, 0.36);
+  border: 0.5px solid rgba(var(--signal-rgb), 0.36);
   border-radius: inherit;
   content: "";
   inset: -0.45rem;
@@ -341,9 +381,9 @@ body {
 }
 
 .group:hover .showreel-play {
-  background-color: var(--bronze);
-  border-color: var(--bronze);
-  box-shadow: 0 0 0 0.55rem rgba(155, 107, 66, 0.06), 0 0 1.8rem rgba(155, 107, 66, 0.2);
+  background-color: var(--signal);
+  border-color: var(--signal);
+  box-shadow: 0 0 0 0.55rem rgba(var(--signal-rgb), 0.06), 0 0 1.8rem rgba(var(--signal-rgb), 0.2);
   color: var(--cream);
   transform: scale(1.05);
 }
@@ -403,7 +443,7 @@ body {
  */
 .work-canvas-amber {
   background:
-    radial-gradient(ellipse at 75% 20%, rgba(198, 140, 86, 0.35), transparent 40%),
+    radial-gradient(ellipse at 75% 20%, rgba(var(--signal-rgb), 0.35), transparent 40%),
     radial-gradient(ellipse at 20% 80%, rgba(120, 80, 45, 0.25), transparent 45%),
     linear-gradient(160deg, #241c14 0%, #15100b 55%, #0b0908 100%);
 }
@@ -431,8 +471,8 @@ body {
 
 /* Lets hovering anywhere in a work row (not just the image) lift the frame. */
 .group:hover .work-frame {
-  border-color: color-mix(in srgb, var(--bronze) 55%, transparent);
-  box-shadow: 0 32px 70px rgba(16, 14, 12, 0.22), 0 0 0 1px rgba(155, 107, 66, 0.08);
+  border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+  box-shadow: 0 32px 70px rgba(16, 14, 12, 0.22), 0 0 0 1px rgba(var(--signal-rgb), 0.08);
   transform: translateY(-0.35rem) scale(1.004);
 }
 

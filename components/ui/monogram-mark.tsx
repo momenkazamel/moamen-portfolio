@@ -9,7 +9,7 @@ type MonogramMarkProps = {
  * stems against hairline diagonals and serif terminal ticks nod at a
  * high-contrast serif without depending on any loaded typeface. Colored
  * via `currentColor` so it inherits color (and hover states) from its
- * parent, e.g. `text-ink group-hover:text-bronze`.
+ * parent, e.g. `text-ink group-hover:text-signal`.
  */
 export function MonogramMark({ className = "" }: MonogramMarkProps) {
   return (

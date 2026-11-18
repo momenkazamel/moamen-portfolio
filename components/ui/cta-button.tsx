@@ -11,7 +11,7 @@ type CtaButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 
 /**
- * Premium bordered CTA button — bronze border, fills solid on hover/focus.
+ * Premium bordered CTA button — signal border, fills solid on hover/focus.
  * Plain `<a>` rather than next/link since it's meant for real external
  * destinations (prefetching an internal route isn't relevant here).
  */

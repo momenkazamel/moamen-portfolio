@@ -9,10 +9,10 @@ import { trackEvent } from "@/lib/analytics";
 import { smoothScrollToId } from "@/lib/smooth-scroll";
 
 const navigation = [
-  { href: "#editing", label: "Video Editing" },
-  { href: "#work", label: "AI Films" },
-  { href: "#kids-universe", label: "Kids Universe" },
+  { href: "#editing", label: "Editing" },
   { href: "#about", label: "About" },
+  { href: "#work", label: "AI Films" },
+  { href: "#kids-universe", label: "Kids" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -24,7 +24,7 @@ const RESUME_URL = "/documents/Moamen_Kazamel_CV.pdf";
  * nav-cta colors flip between cream (on the dark hero) and ink (on the
  * solid ground) via the .navbar-transparent CSS hook in globals.css. Active
  * section is tracked with an IntersectionObserver and surfaced as a quiet
- * bronze tint on the matching link — no bold weight, no underline.
+ * signal tint on the matching link — no bold weight, no underline.
  *
  * Below `lg:`, the inline nav/CTA are replaced by a fullscreen takeover menu
  * (charcoal ground, the same uppercase-tracked nav typography scaled up)
@@ -184,15 +184,15 @@ export function Navbar() {
       <div className="shell flex h-[4.75rem] items-center justify-between lg:h-[5.75rem]">
         <Link
           href="/"
-          aria-label="Moamen Kazamel — home"
+          aria-label="Moamen Kazamel, home"
           aria-hidden={isMenuOpen}
           tabIndex={isMenuOpen ? -1 : undefined}
           className={`group flex items-center gap-4 transition-colors duration-500 ${logoTextClass} hover:opacity-70`}
         >
           <MonogramMark
-            className={`h-9 w-[1.875rem] transition-colors duration-300 ${logoTextClass} group-hover:text-bronze`}
+            className={`h-9 w-[1.875rem] transition-colors duration-300 ${logoTextClass} group-hover:text-signal`}
           />
-          <span aria-hidden="true" className="hidden h-8 w-px bg-bronze/40 sm:block" />
+          <span aria-hidden="true" className="hidden h-8 w-px bg-signal/40 sm:block" />
           <span className="hidden flex-col gap-[6px] sm:flex">
             <span className="text-[0.64rem] font-medium uppercase leading-none tracking-[0.38em]">
               Moamen Kazamel
@@ -202,7 +202,7 @@ export function Navbar() {
                 isDarkGround ? "text-cream/55" : "text-ink/45"
               }`}
             >
-              Video Editor &amp; Creative
+              Video Editor
             </span>
           </span>
         </Link>
@@ -213,7 +213,7 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               onClick={(event) => handleNavClick(event, item.href)}
-              className={`nav-link ${activeSection === item.href.slice(1) ? "text-bronze" : ""}`}
+              className={`nav-link ${activeSection === item.href.slice(1) ? "text-signal" : ""}`}
             >
               {item.label}
             </Link>
@@ -293,7 +293,7 @@ export function Navbar() {
                 visual language. */}
             <nav aria-label="Mobile navigation" className="shell relative flex flex-1 flex-col py-8">
               <p className="eyebrow hero-eyebrow mb-2 flex items-center gap-4">
-                <span aria-hidden="true" className="h-px w-8 bg-bronze" />
+                <span aria-hidden="true" className="h-px w-8 bg-signal" />
                 Menu
               </p>
 
@@ -314,14 +314,14 @@ export function Navbar() {
                       <Link
                         href={item.href}
                         onClick={(event) => handleNavClick(event, item.href)}
-                        className={`group flex items-baseline gap-4 border-b border-cream/10 py-4 transition-colors duration-300 hover:text-bronze focus-visible:text-bronze focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${
-                          isActive ? "text-bronze" : "text-cream"
+                        className={`group flex items-baseline gap-4 border-b border-cream/10 py-4 transition-colors duration-300 hover:text-signal focus-visible:text-signal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${
+                          isActive ? "text-signal" : "text-cream"
                         }`}
                       >
                         <span
                           aria-hidden="true"
-                          className={`text-[0.68rem] font-medium uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-bronze group-focus-visible:text-bronze ${
-                            isActive ? "text-bronze" : "text-cream/30"
+                          className={`text-[0.68rem] font-medium uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-signal group-focus-visible:text-signal ${
+                            isActive ? "text-signal" : "text-cream/30"
                           }`}
                         >
                           {String(index + 1).padStart(2, "0")}

@@ -17,6 +17,12 @@ import { motion } from "framer-motion";
  */
 const headlineSize = "text-[clamp(2.75rem,12.5vw,3.75rem)] sm:text-[clamp(3.5rem,9vw,5.5rem)] lg:text-[clamp(4.25rem,9.45vw,10.125rem)]";
 
+const HERO_FACTS = [
+  { value: "200+", label: "videos cut" },
+  { value: "10M+", label: "views" },
+  { value: "AR / EN", label: "languages" },
+];
+
 export function Hero() {
   const { back: glow, handlePointerMove, reset, prefersReducedMotion } = useParallaxPointer();
   // The reveal mask's overflow-hidden only needs to exist while the slide-up
@@ -53,18 +59,18 @@ export function Hero() {
         variants={staggerChildren()}
       >
         <motion.p
-          className="eyebrow hero-eyebrow mb-5 flex items-center gap-4 sm:mb-10 lg:mb-12"
+          className="eyebrow hero-eyebrow mb-5 flex items-center gap-3 sm:mb-10 lg:mb-12"
           variants={fadeUp}
           transition={{ duration: 0.7, ease: easeEditorial }}
         >
-          <span aria-hidden="true" className="h-px w-11 bg-bronze" />
-          Video editor &amp; creative · Est. 2021
+          <span aria-hidden="true" className="rec-lamp" />
+          MK · Video editor · Egypt · Since 2021
         </motion.p>
 
         <motion.h1
           id="hero-title"
-          aria-label="Stories worth watching twice."
-          className={`hero-heading font-display max-w-[68rem] leading-[0.89] tracking-[-0.072em] ${headlineSize}`}
+          aria-label="Cut by hand. Frame by frame."
+          className={`hero-heading font-display max-w-[68rem] uppercase leading-[0.86] tracking-[-0.015em] ${headlineSize}`}
           variants={staggerChildren()}
         >
           <span aria-hidden="true" className="reveal-line" style={line1Settled ? { overflow: "visible" } : undefined}>
@@ -74,28 +80,43 @@ export function Hero() {
               transition={{ duration: 1.05, ease: easeEditorial }}
               onAnimationComplete={() => setLine1Settled(true)}
             >
-              Stories worth
+              Cut by hand.
             </motion.span>
           </span>
           <span aria-hidden="true" className="reveal-line" style={line2Settled ? { overflow: "visible" } : undefined}>
             <motion.span
-              className="block text-[0.91em] tracking-[0.01em] text-bronze"
+              className="block text-signal"
               variants={revealLine}
               transition={{ duration: 1.05, ease: easeEditorial }}
               onAnimationComplete={() => setLine2Settled(true)}
             >
-              watching twice.
+              Frame by frame.
             </motion.span>
           </span>
         </motion.h1>
 
         <motion.p
-          className="mt-8 max-w-lg text-[0.98rem] leading-7 text-cream/65 sm:mt-10 lg:mt-12 lg:text-lg lg:leading-8"
+          className="mt-8 max-w-xl text-[0.98rem] leading-7 text-cream/70 sm:mt-10 lg:mt-12 lg:text-lg lg:leading-8"
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >
-          I edit and shape commercials, brand films, and social content—cut for rhythm, built to be watched twice.
+          I&apos;m Moamen Kazamel. I edit YouTube documentaries, real-estate series, courses and reels in Arabic and
+          English, with the motion graphics, captions and sound done in the same room.
         </motion.p>
+
+        <motion.dl
+          className="timecode mt-7 flex flex-wrap gap-x-8 gap-y-2 text-[0.72rem] uppercase text-cream/55"
+          variants={fadeUp}
+          transition={{ duration: 0.75, ease: easeEditorial }}
+        >
+          {HERO_FACTS.map((fact) => (
+            <div key={fact.label} className="flex items-baseline gap-2">
+              <dt className="sr-only">{fact.label}</dt>
+              <dd className="text-cream">{fact.value}</dd>
+              <span aria-hidden="true">{fact.label}</span>
+            </div>
+          ))}
+        </motion.dl>
 
         <motion.div
           className="mt-6 sm:mt-10 lg:mt-12"
@@ -109,17 +130,17 @@ export function Hero() {
                 event.preventDefault();
                 smoothScrollToId("editing");
               }}
-              className="border-cream text-cream hover:border-bronze hover:text-bronze">
-              Video Editing
+              className="border-cream text-cream hover:border-signal hover:text-signal">
+              See the edits
             </ArrowLink>
             <ArrowLink
-              href="#work"
+              href="#contact"
               onClick={(event) => {
                 event.preventDefault();
-                smoothScrollToId("work");
+                smoothScrollToId("contact");
               }}
-              className="border-cream/60 text-cream/75 hover:border-bronze hover:text-bronze">
-              AI Films
+              className="border-cream/60 text-cream/75 hover:border-signal hover:text-signal">
+              Get in touch
             </ArrowLink>
           </div>
         </motion.div>

@@ -66,7 +66,7 @@ export const projects: Project[] = [
     title: "The Country That Never Was.",
     category: "DOCUMENTARY COLD OPEN",
     description:
-      "The true story of Poyais — a nation sold to settlers in 1822 that never existed — rebuilt with AI as the cinematic opening of a real-estate documentary series.",
+      "The true story of Poyais: a nation sold to settlers in 1822 that never existed: rebuilt with AI as the cinematic opening of a real-estate documentary series.",
     year: "2026",
     tags: ["AI", "Direction", "Editing"],
     grade: "umber",

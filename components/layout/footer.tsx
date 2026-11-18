@@ -1,10 +1,9 @@
 import { ArrowLink } from "@/components/ui/arrow-link";
 
 const TOOL_CATEGORIES = [
-  { label: "Editing", tools: "Premiere Pro · After Effects · Photoshop · CapCut" },
-  { label: "AI Video", tools: "Veo 3 · Kling · Runway · Seedance" },
-  { label: "AI Image", tools: "GPT Image · Nano Banana · FLUX" },
-  { label: "Audio", tools: "ElevenLabs · Suno" },
+  { label: "Edit", tools: "Premiere Pro" },
+  { label: "Motion", tools: "After Effects · Photoshop" },
+  { label: "Delivery", tools: "YouTube · Reels · TikTok · Ads" },
 ];
 
 const EMAIL = "momenkazamel@gmail.com";
@@ -34,17 +33,18 @@ export function Footer() {
       <div className="shell relative pt-20 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pt-24 lg:pb-[calc(6rem+env(safe-area-inset-bottom))]">
         <div className="grid gap-16 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-x-10">
           <div>
-            <h2 className="font-display text-[clamp(1.65rem,4.07vw,3.7rem)] leading-[1.1] tracking-[-0.03em]">
-              <span className="block">Let&apos;s create</span>
-              <span className="block">something unforgettable.</span>
+            <h2 className="font-display text-[clamp(1.65rem,4.07vw,3.7rem)] leading-[1.1] tracking-[-0.005em]">
+              <span className="block">Got footage?</span>
+              <span className="block text-signal">Send it over.</span>
             </h2>
             <p className="mt-6 max-w-lg text-[0.98rem] leading-7 text-cream/60 lg:text-lg lg:leading-8">
-              Available for freelance, commercial, and creative collaborations, worldwide.
+              One-off edits and monthly packages, in Arabic and English. Send a raw clip and you get a
+              quote within 24 hours.
             </p>
           </div>
 
           <div>
-            <p className="font-display text-[1.15rem] text-cream/55">Tools of the craft.</p>
+            <p className="font-display text-[1.15rem] text-cream/55">The suite.</p>
             <div className="mt-5 flex flex-col gap-4">
               {TOOL_CATEGORIES.map((category) => (
                 <div key={category.label}>
@@ -62,28 +62,28 @@ export function Footer() {
                 <ArrowLink
                   href={`mailto:${EMAIL}`}
                   external
-                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
+                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
                 >
                   Email
                 </ArrowLink>
                 <ArrowLink
                   href={LINKEDIN_URL}
                   external
-                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
+                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
                 >
                   LinkedIn
                 </ArrowLink>
                 <ArrowLink
                   href={RESUME_URL}
                   external
-                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
+                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
                 >
                   Resume
                 </ArrowLink>
                 <ArrowLink
                   href={WHATSAPP_URL}
                   external
-                  className="border-cream/70 pt-2 text-cream hover:border-bronze hover:text-bronze lg:pt-0"
+                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
                 >
                   WhatsApp
                 </ArrowLink>

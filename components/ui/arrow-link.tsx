@@ -49,7 +49,7 @@ export function ArrowLink({ children, className = "", external = false, ...props
       onPointerLeave={resetPosition}
     >
       <Link
-        className={`group inline-flex items-center gap-4 border-b border-current pb-2 text-[0.62rem] font-medium uppercase tracking-[0.25em] transition-[border-color,color] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze ${className}`}
+        className={`group inline-flex items-center gap-4 border-b border-current pb-2 text-[0.62rem] font-medium uppercase tracking-[0.25em] transition-[border-color,color] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${className}`}
         {...externalProps}
         {...props}
         onClick={handleClick}

@@ -16,7 +16,7 @@ export function About() {
     <section id="about" className="relative isolate overflow-hidden bg-charcoal text-cream">
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_78%_55%,rgba(198,140,86,0.22),transparent_60%),linear-gradient(120deg,#171310_0%,#0d0b09_55%,#080706_100%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_78%_55%,rgba(var(--signal-rgb),0.22),transparent_60%),linear-gradient(120deg,#171310_0%,#0d0b09_55%,#080706_100%)]"
       />
       <div
         aria-hidden="true"
@@ -47,21 +47,22 @@ export function About() {
             className="eyebrow hero-eyebrow mb-6 flex items-center gap-4"
             style={{ letterSpacing: "0.28em", fontWeight: 400 }}
           >
-            <span aria-hidden="true" className="h-px w-11 bg-bronze" />
-            About
+            <span aria-hidden="true" className="h-px w-11 bg-signal" />
+            Reel 02 · Who&apos;s cutting
           </p>
 
-          <h2 className="font-display max-w-lg text-[clamp(1.9rem,3.75vw,3.2rem)] leading-[1.05] tracking-[-0.03em]">
-            Stories before technology.
+          <h2 className="font-display max-w-lg text-[clamp(1.9rem,3.75vw,3.2rem)] leading-[1.05] tracking-[-0.005em]">
+            Moamen Shawky Kazamel.
           </h2>
 
           <p className="mt-5 max-w-[26rem] text-[0.95rem] leading-[1.75] text-cream/65 sm:mt-6 sm:max-w-[30rem] sm:text-[0.98rem] sm:leading-7 lg:text-lg lg:leading-8">
-            I&apos;m Moamen Kazamel, a video editor and creative shaping commercials, brand films, and digital
-            stories where every cut serves the story—not the other way around.
+            Video editor from Egypt. I&apos;ve been cutting since 2021 for YouTube hosts, teachers,
+            real-estate and interior brands, and agencies in more than ten countries. One editor from raw footage
+            to final export, so the style stays consistent from episode one.
           </p>
 
           <div className="mt-8 flex flex-col gap-2 sm:mt-10">
-            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Video Editor &amp; Creative</p>
+            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Video Editor</p>
             <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Formerly at AiBrush Studio</p>
           </div>
         </div>

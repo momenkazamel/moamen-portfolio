@@ -92,6 +92,17 @@ export function WorkReel({
       className="showreel-frame work-frame relative aspect-[9/16] w-full max-w-none overflow-hidden rounded-[6px] bg-[#15120f] shadow-[0_20px_50px_rgba(16,14,12,0.18)] sm:max-w-md lg:max-w-[22rem]"
     >
       <div aria-hidden="true" className={`showreel-canvas work-canvas-${grade} absolute inset-0`} />
+      {posterSrc ? (
+        // eslint-disable-next-line @next/next/no-img-element -- static poster frame under the lazy video
+        <img
+          src={posterSrc}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.9]"
+        />
+      ) : null}
 
       {shouldLoadVideo && youtubeVideoId ? (
         <YoutubeCardVideo
@@ -135,7 +146,7 @@ export function WorkReel({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel ?? `Open the case study for ${title}`}
-      className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bronze"
+      className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
       onClick={handleClick}
     >
       {frame}

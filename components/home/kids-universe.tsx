@@ -30,27 +30,27 @@ export function KidsUniverse() {
       <div className="shell relative grid min-h-[52vh] content-center py-16 sm:min-h-[70vh] sm:py-20 lg:min-h-[64vh] lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5 lg:col-start-8">
           <p className="eyebrow hero-eyebrow mb-6 flex items-center gap-4">
-            <span aria-hidden="true" className="h-px w-11 bg-bronze" />
-            Original Series
+            <span aria-hidden="true" className="h-px w-11 bg-signal" />
+            Reel 04 · Kids
           </p>
 
           <h2
             id="kids-universe-title"
-            className="font-display max-w-xl text-[clamp(2.5rem,5vw,4.2rem)] leading-[1.05] tracking-[-0.03em]"
+            className="font-display max-w-xl text-[clamp(2.5rem,5vw,4.2rem)] leading-[1.05] tracking-[-0.005em]"
           >
             Kids Universe.
           </h2>
 
-          <p className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-bronze">
-            EDUCATIONAL STORYTELLING
+          <p className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-signal">
+            Educational animation
           </p>
 
           <p className="mt-6 max-w-md text-[0.98rem] leading-7 text-cream/65 lg:text-lg lg:leading-8">
-            A collection of educational animations combining storytelling, music, colorful characters, and cinematic visuals to create engaging learning experiences for children.
+            Songs, characters and short lessons for children, edited for the AiBrush for Kids YouTube channel.
           </p>
 
           <CtaButton href={YOUTUBE_URL} external className="mt-9">
-            EXPLORE THE CHANNEL
+            Watch the channel
           </CtaButton>
         </div>
       </div>

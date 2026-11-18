@@ -24,17 +24,17 @@ export function VideoEditing() {
       <div className="relative">
         <div className="shell">
           <p className="eyebrow hero-eyebrow mb-6 flex items-center gap-4">
-            <span aria-hidden="true" className="h-px w-11 bg-bronze" />
-            Video Editing
+            <span aria-hidden="true" className="h-px w-11 bg-signal" />
+            Reel 01 · Editing
           </p>
           <h2
             id="editing-title"
-            className="font-display max-w-3xl text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.98] tracking-[-0.03em]"
+            className="font-display max-w-3xl text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.98] tracking-[-0.005em]"
           >
-            Cut for rhythm. <span className="text-bronze">Built to hold attention.</span>
+            Recent edits.
           </h2>
           <p className="mt-6 max-w-lg text-[0.98rem] leading-7 text-cream/65 lg:text-lg lg:leading-8">
-            Real footage, edited end to end — pacing, captions, graphics and sound. Press play with sound on.
+            Real footage, edited start to finish: pacing, captions, graphics and sound. Turn the sound on.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ function EditCard({ project }: { project: EditProject }) {
 
       <div className="mt-5">
         <p className="eyebrow hero-eyebrow mb-3 flex items-center gap-4">
-          <span aria-hidden="true" className="h-px w-8 bg-bronze" />
+          <span aria-hidden="true" className="h-px w-8 bg-signal" />
           {project.category} · {project.year}
         </p>
         <h3 className="font-display text-[clamp(1.35rem,2vw,1.85rem)] leading-[1.1] tracking-[-0.02em]">
