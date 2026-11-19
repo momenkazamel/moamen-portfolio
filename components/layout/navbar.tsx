@@ -184,7 +184,7 @@ export function Navbar() {
       <div className="shell flex h-[4.75rem] items-center justify-between lg:h-[5.75rem]">
         <Link
           href="/"
-          aria-label="Moamen Kazamel, home"
+          aria-label="Moamen Shawky Kazamel, home"
           aria-hidden={isMenuOpen}
           tabIndex={isMenuOpen ? -1 : undefined}
           className={`group flex items-center gap-4 transition-colors duration-500 ${logoTextClass} hover:opacity-70`}
@@ -195,7 +195,7 @@ export function Navbar() {
           <span aria-hidden="true" className="hidden h-8 w-px bg-signal/40 sm:block" />
           <span className="hidden flex-col gap-[6px] sm:flex">
             <span className="text-[0.64rem] font-medium uppercase leading-none tracking-[0.38em]">
-              Moamen Kazamel
+              Moamen Shawky Kazamel
             </span>
             <span
               className={`text-[0.56rem] font-medium uppercase leading-none tracking-[0.24em] ${

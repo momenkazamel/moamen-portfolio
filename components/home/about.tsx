@@ -52,7 +52,8 @@ export function About() {
           </p>
 
           <h2 className="font-display max-w-lg text-[clamp(1.9rem,3.75vw,3.2rem)] leading-[1.05] tracking-[-0.005em]">
-            Moamen Shawky Kazamel.
+            <span className="block">Moamen</span>
+            <span className="block">Shawky Kazamel.</span>
           </h2>
 
           <p className="mt-5 max-w-[26rem] text-[0.95rem] leading-[1.75] text-cream/65 sm:mt-6 sm:max-w-[30rem] sm:text-[0.98rem] sm:leading-7 lg:text-lg lg:leading-8">
@@ -63,7 +64,6 @@ export function About() {
 
           <div className="mt-8 flex flex-col gap-2 sm:mt-10">
             <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Video Editor</p>
-            <p className="text-[0.68rem] font-normal uppercase tracking-[0.22em] text-cream/50">Formerly at AiBrush Studio</p>
           </div>
         </div>
       </div>

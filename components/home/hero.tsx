@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
  * narrow viewports instead of holding a flat, oversized value that can
  * wrap ("Stories worth" onto two lines) and clip inside the reveal mask.
  */
-const headlineSize = "text-[clamp(2.75rem,12.5vw,3.75rem)] sm:text-[clamp(3.5rem,9vw,5.5rem)] lg:text-[clamp(4.25rem,9.45vw,10.125rem)]";
+const headlineSize = "text-[clamp(2.4rem,10.5vw,3.1rem)] sm:text-[clamp(3rem,7vw,4.5rem)] lg:text-[clamp(3.75rem,6.6vw,7rem)]";
 
 const HERO_FACTS = [
   { value: "200+", label: "videos cut" },
@@ -100,7 +100,7 @@ export function Hero() {
           variants={fadeUp}
           transition={{ duration: 0.75, ease: easeEditorial }}
         >
-          I&apos;m Moamen Kazamel. I edit YouTube documentaries, real-estate series, courses and reels in Arabic and
+          I&apos;m Moamen Shawky Kazamel. I edit YouTube documentaries, real-estate series, courses and reels in Arabic and
           English, with the motion graphics, captions and sound done in the same room.
         </motion.p>
 

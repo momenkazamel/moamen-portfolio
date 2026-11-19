@@ -1,8 +1,11 @@
-import { ArrowLink } from "@/components/ui/arrow-link";
+"use client";
+
+import { getLeadEvent, trackEvent } from "@/lib/analytics";
 
 const TOOL_CATEGORIES = [
   { label: "Edit", tools: "Premiere Pro" },
   { label: "Motion", tools: "After Effects · Photoshop" },
+  { label: "AI B-roll", tools: "Kling · Google Flow · Seedance" },
   { label: "Delivery", tools: "YouTube · Reels · TikTok · Ads" },
 ];
 
@@ -10,6 +13,14 @@ const EMAIL = "momenkazamel@gmail.com";
 const LINKEDIN_URL = "https://www.linkedin.com/in/moamen-kazamel-352144346/";
 const WHATSAPP_URL = "https://wa.me/201010431278";
 const RESUME_URL = "/documents/Moamen_Kazamel_CV.pdf";
+
+/** Contact rows, most direct first. */
+const CONTACTS = [
+  { label: "WhatsApp", value: "+20 101 043 1278", note: "Fastest reply", href: WHATSAPP_URL },
+  { label: "Email", value: EMAIL, note: "Briefs & files", href: `mailto:${EMAIL}` },
+  { label: "LinkedIn", value: "in/moamen-kazamel", note: "Profile", href: LINKEDIN_URL },
+  { label: "Resume", value: "Download PDF", note: "2026", href: RESUME_URL },
+];
 
 /**
  * The site's final section — quiet closing chapter rather than a
@@ -41,6 +52,39 @@ export function Footer() {
               One-off edits and monthly packages, in Arabic and English. Send a raw clip and you get a
               quote within 24 hours.
             </p>
+
+            <ul className="mt-10 border-t border-cream/10 lg:mt-14" aria-label="Contact">
+              {CONTACTS.map((item, i) => (
+                <li key={item.label} className="border-b border-cream/10">
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      const lead = getLeadEvent(item.href);
+                      if (lead) trackEvent(lead.name, lead.params);
+                    }}
+                    className="contact-row group relative grid grid-cols-[2.25rem_1fr_auto] items-center gap-3 overflow-hidden py-5 sm:grid-cols-[3rem_9rem_1fr_auto] sm:gap-6 sm:py-6"
+                  >
+                    <span aria-hidden="true" className="contact-sweep absolute inset-0" />
+                    <span className="timecode relative text-[0.66rem] text-cream/35">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-display relative text-[1.35rem] leading-none sm:text-[1.6rem]">{item.label}</span>
+                    <span className="timecode relative col-start-2 truncate text-[0.72rem] text-cream/55 sm:col-start-auto">
+                      {item.value}
+                      <span className="ml-3 hidden text-cream/30 xl:inline">· {item.note}</span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="contact-arrow relative row-span-2 flex h-10 w-10 items-center justify-center self-center rounded-full border border-cream/20 sm:row-span-1"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>
@@ -56,46 +100,13 @@ export function Footer() {
               ))}
             </div>
 
-            <div className="mt-8">
-              <p className="text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/40">Contact</p>
-              <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2">
-                <ArrowLink
-                  href={`mailto:${EMAIL}`}
-                  external
-                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
-                >
-                  Email
-                </ArrowLink>
-                <ArrowLink
-                  href={LINKEDIN_URL}
-                  external
-                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
-                >
-                  LinkedIn
-                </ArrowLink>
-                <ArrowLink
-                  href={RESUME_URL}
-                  external
-                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
-                >
-                  Resume
-                </ArrowLink>
-                <ArrowLink
-                  href={WHATSAPP_URL}
-                  external
-                  className="border-cream/70 pt-2 text-cream hover:border-signal hover:text-signal lg:pt-0"
-                >
-                  WhatsApp
-                </ArrowLink>
-              </div>
-            </div>
           </div>
         </div>
 
         <div className="mt-16 h-px w-full bg-cream/10 lg:mt-20" />
 
         <p className="mt-10 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/35">
-          © 2026 Moamen Kazamel
+          © 2026 Moamen Shawky Kazamel
         </p>
       </div>
     </footer>

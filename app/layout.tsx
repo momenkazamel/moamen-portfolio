@@ -5,9 +5,9 @@ import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 import "./globals.css";
 
 const SITE_URL = "https://moamenkazamel.com";
-const SITE_TITLE = "Moamen Kazamel · Video Editor";
+const SITE_TITLE = "Moamen Shawky Kazamel · Video Editor";
 const SITE_DESCRIPTION =
-  "Moamen Kazamel (MK), a video editor from Egypt. YouTube documentaries, real-estate series, courses and reels in Arabic and English.";
+  "Moamen Shawky Kazamel (MK), a video editor from Egypt. YouTube documentaries, real-estate series, courses and reels in Arabic and English.";
 
 // Archivo carries both body and display (display uses its condensed width
 // axis, see .font-display). Plex Mono is for labels and timecode; Plex Sans
