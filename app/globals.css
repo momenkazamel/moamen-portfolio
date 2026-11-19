@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* MK palette: neutral paper + near-black. The accent is Qatar-flag
-     maroon (--signal, #8A1538), a true red-brown burgundy with no pink in
-     it; --wine is a darker maroon for fills, glows and backgrounds. */
+  /* MK palette: neutral paper + near-black. The accent is Oxblood
+     (--signal, #4A0E17), a very dark red-brown; --wine is deeper still for
+     fills. Oxblood alone disappears on the near-black ground, so lines,
+     lamps and small text on dark sections use --signal-lift, a lifted
+     oxblood that stays readable. */
   --cream: #ebe8e2;
   --ink: #141413;
   --charcoal: #0d0d0c;
-  --signal: #8a1538;
-  --signal-rgb: 138, 21, 56;
-  --wine: #560c22;
-  --wine-rgb: 86, 12, 34;
+  --signal: #4a0e17;
+  --signal-rgb: 74, 14, 23;
+  --signal-lift: #8a2430;
+  --signal-lift-rgb: 138, 36, 48;
+  --wine: #2e070d;
+  --wine-rgb: 46, 7, 13;
 }
 
 /* Must live in the base layer: as an unlayered rule it outranks every
@@ -701,7 +705,7 @@ button:hover > .edit-play {
 /* Anodized-metal burgundy for big display words: a brushed sheen across
    the iPhone burgundy so it stays readable on the near-black ground. */
 .text-burgundy-metal {
-  background: linear-gradient(100deg, #9e1c42 0%, #7a1230 36%, #a3214a 55%, #6a0f2a 78%, #8a1538 100%);
+  background: linear-gradient(100deg, #7d1f2b 0%, #5a121c 36%, #8f2a36 55%, #4a0e17 78%, #6e1923 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -935,4 +939,31 @@ button:hover > .edit-play {
 .gen-watch:hover,
 .gen-watch:focus-visible {
   background: var(--signal);
+}
+
+/* Oxblood on the dark ground: lift lines, lamps, fills and small accent
+   text so they stay visible against the near-black. */
+.bg-charcoal .text-signal,
+.navbar-transparent .text-signal,
+[role="dialog"] .text-signal {
+  color: var(--signal-lift);
+}
+
+.rec-lamp,
+.hero-eyebrow > span[aria-hidden="true"]:first-child,
+.bg-charcoal .bg-signal,
+[role="dialog"] .bg-signal,
+.reel-playhead-line,
+.reel-mini-playhead,
+.reel-playhead-badge,
+.reel-clip.is-active,
+.reel-cta,
+.edit-play,
+.edit-playhead,
+.cinema-nav,
+.cinema-ctl,
+.contact-sweep,
+.gen-scan {
+  --signal: var(--signal-lift);
+  --signal-rgb: var(--signal-lift-rgb);
 }
