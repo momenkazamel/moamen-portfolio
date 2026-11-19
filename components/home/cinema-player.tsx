@@ -24,6 +24,8 @@ type CinemaPlayerProps = {
   index: number;
   onIndexChange: (index: number) => void;
   onClose: () => void;
+  /** Clips with no audio track (the AI loops): hide the sound control. */
+  silent?: boolean;
 };
 
 /**
@@ -33,7 +35,7 @@ type CinemaPlayerProps = {
  * timecode, mute and fullscreen. Keyboard: Space/K play, ←/→ previous/next
  * cut, M mute, F fullscreen, Esc close.
  */
-export function CinemaPlayer({ projects, index, onIndexChange, onClose }: CinemaPlayerProps) {
+export function CinemaPlayer({ projects, index, onIndexChange, onClose, silent = false }: CinemaPlayerProps) {
   const project = projects[index];
   const total = projects.length;
   const isPortrait = project.format === "portrait";
@@ -318,9 +320,16 @@ export function CinemaPlayer({ projects, index, onIndexChange, onClose }: Cinema
             <button type="button" onClick={() => go(1)} aria-label="Next cut" className="cinema-ctl lg:hidden">
               <span aria-hidden="true">→</span>
             </button>
-            <button type="button" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="cinema-ctl timecode whitespace-nowrap text-[0.66rem] uppercase">
-              {muted ? "Sound off" : "Sound on"}
-            </button>
+            {silent ? null : (
+              <button
+                type="button"
+                onClick={toggleMute}
+                aria-label={muted ? "Unmute" : "Mute"}
+                className="cinema-ctl timecode whitespace-nowrap text-[0.66rem] uppercase"
+              >
+                {muted ? "Sound off" : "Sound on"}
+              </button>
+            )}
             <button
               type="button"
               onClick={toggleFullscreen}

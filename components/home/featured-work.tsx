@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { projects, type Project } from "@/components/home/work-data";
+import { CinemaPlayer } from "@/components/home/cinema-player";
+import type { EditProject } from "@/components/home/editing-data";
 import { easeEditorial } from "@/components/home/hero.motion";
 import { trackEvent } from "@/lib/analytics";
 
@@ -26,6 +28,27 @@ export function FeaturedWork() {
   const pctRef = useRef<HTMLSpanElement>(null);
 
   const [active, setActive] = useState(0);
+  // True once the active film has fully "generated"; the play button shows then.
+  const [ready, setReady] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // The AI loops in the screening-room player's shape (vertical, silent).
+  const playable = useMemo<EditProject[]>(
+    () =>
+      projects
+        .filter((p) => p.videoSrc)
+        .map((p) => ({
+          title: p.title,
+          category: p.category,
+          year: p.year,
+          description: p.description,
+          roles: p.tags,
+          format: "portrait",
+          runtime: "00:20",
+          videoSrc: p.videoSrc as string,
+          posterSrc: p.posterSrc ?? "",
+        })),
+    [],
+  );
   const noise = useMotionValue(1);
   const blur = useTransform(noise, (n) => `blur(${(n * 22).toFixed(1)}px) saturate(${(1 - n * 0.7).toFixed(2)})`);
   const grainOpacity = useTransform(noise, (n) => n * 0.95);
@@ -41,6 +64,7 @@ export function FeaturedWork() {
       const local = position - index;
       const denoise = Math.min(1, local / DENOISE);
       setActive((prev) => (prev === index ? prev : index));
+      setReady((prev) => (prev === denoise >= 0.999 ? prev : denoise >= 0.999));
       noise.set(1 - denoise);
 
       const step = Math.round(denoise * STEPS);
@@ -118,13 +142,38 @@ export function FeaturedWork() {
               <motion.div aria-hidden="true" className="gen-noise absolute inset-0" style={{ opacity: grainOpacity }} />
               <motion.div aria-hidden="true" className="gen-scan absolute inset-x-0 h-px" style={{ top: scanY, opacity: grainOpacity }} />
 
-              <div className="timecode absolute inset-x-3 top-3 flex justify-between text-[0.62rem] uppercase text-cream/85">
+              <AnimatePresence>
+                {ready ? (
+                  <motion.button
+                    key="play"
+                    type="button"
+                    onClick={() => {
+                      const i = playable.findIndex((p) => p.title === project.title);
+                      if (i >= 0) setOpenIndex(i);
+                    }}
+                    aria-label={`Play ${project.title}`}
+                    className="group absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.45, ease: easeEditorial }}
+                  >
+                    <span className="edit-play flex h-16 w-16 items-center justify-center rounded-full border border-cream/70">
+                      <svg viewBox="0 0 12 14" aria-hidden="true" className="ml-1 h-4 w-4 fill-current">
+                        <path d="M0 0 L12 7 L0 14 Z" />
+                      </svg>
+                    </span>
+                  </motion.button>
+                ) : null}
+              </AnimatePresence>
+
+              <div className="timecode pointer-events-none absolute inset-x-3 top-3 flex justify-between text-[0.62rem] uppercase text-cream/85">
                 <span>
                   Step <span ref={stepRef}>00</span>/{STEPS}
                 </span>
                 <span>9:16</span>
               </div>
-              <div className="timecode absolute inset-x-3 bottom-3 flex items-center justify-between text-[0.62rem] uppercase text-cream/85">
+              <div className="timecode pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-between text-[0.62rem] uppercase text-cream/85">
                 <span className="flex items-center gap-2">
                   <span className="rec-lamp" aria-hidden="true" /> Job {String(active + 1).padStart(2, "0")}
                 </span>
@@ -197,6 +246,16 @@ export function FeaturedWork() {
           </div>
         </div>
       </div>
+
+      {openIndex !== null ? (
+        <CinemaPlayer
+          projects={playable}
+          index={openIndex}
+          onIndexChange={setOpenIndex}
+          onClose={() => setOpenIndex(null)}
+          silent
+        />
+      ) : null}
     </section>
   );
 }
