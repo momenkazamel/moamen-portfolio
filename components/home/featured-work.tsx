@@ -115,7 +115,7 @@ export function FeaturedWork() {
         <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden pb-6 pt-[5.5rem] lg:pt-[6.5rem]">
           <div className="shell grid items-center gap-5 sm:gap-8 lg:grid-cols-[auto_1fr] lg:gap-16">
             {/* Render frame */}
-            <div className="gen-frame relative mx-auto aspect-[9/16] h-[min(46svh,30rem)] overflow-hidden bg-[#141312] lg:mx-0 lg:h-[min(64svh,36rem)]">
+            <div className="gen-frame relative mx-auto aspect-[9/16] h-[min(36svh,26rem)] overflow-hidden bg-[#141312] lg:mx-0 lg:h-[min(64svh,36rem)]">
               <motion.div className="absolute inset-0" style={{ filter: blur }}>
                 {/* eslint-disable-next-line @next/next/no-img-element -- poster under the loop */}
                 <img
