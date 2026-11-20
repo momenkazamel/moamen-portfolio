@@ -134,13 +134,13 @@ export function Hero() {
               See the edits
             </ArrowLink>
             <ArrowLink
-              href="#contact"
+              href="#work"
               onClick={(event) => {
                 event.preventDefault();
-                smoothScrollToId("contact");
+                smoothScrollToId("work");
               }}
               className="border-cream/60 text-cream/75 hover:border-signal hover:text-signal">
-              Get in touch
+              AI films
             </ArrowLink>
           </div>
         </motion.div>
