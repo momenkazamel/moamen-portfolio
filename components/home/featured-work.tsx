@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { projects, type Project } from "@/components/home/work-data";
 import { CinemaPlayer } from "@/components/home/cinema-player";
@@ -18,8 +18,12 @@ const DENOISE = 0.5;
  * resolving out of noise step by step (blur and grain falling away with a
  * step counter), then the clean cut playing. Each film is one job in the
  * queue strip (done / rendering / queued), and any job can be jumped to.
- * Only the active film's short loop loads; the rest show posters.
+ * Only the active film's short loop loads, and only once the section is near
+ * the viewport (a light 450p preview; the full file is for the player).
+ * The job sheet reserves the height of the longest film's text, so nothing
+ * shifts while the brief types or the films swap.
  */
+const previewOf = (src: string) => src.replace("/videos/ai/", "/videos/ai/preview/");
 export function FeaturedWork() {
   const total = projects.length;
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,6 +35,15 @@ export function FeaturedWork() {
   // True once the active film has fully "generated"; the play button shows then.
   const [ready, setReady] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // Videos mount only when the section is within a screen of the viewport.
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") { setNear(true); return; }
+    const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting), { rootMargin: "100% 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   // The AI loops in the screening-room player's shape (vertical, silent).
   const playable = useMemo<EditProject[]>(
     () =>
@@ -50,7 +63,8 @@ export function FeaturedWork() {
     [],
   );
   const noise = useMotionValue(1);
-  const blur = useTransform(noise, (n) => `blur(${(n * 22).toFixed(1)}px) saturate(${(1 - n * 0.7).toFixed(2)})`);
+  // "none" once clean: a zero blur still keeps an expensive filter layer on the playing video.
+  const blur = useTransform(noise, (n) => (n < 0.005 ? "none" : `blur(${(n * 22).toFixed(1)}px) saturate(${(1 - n * 0.7).toFixed(2)})`));
   const grainOpacity = useTransform(noise, (n) => n * 0.95);
   const scanY = useTransform(noise, (n) => `${(1 - n) * 100}%`);
 
@@ -124,10 +138,10 @@ export function FeaturedWork() {
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover"
                 />
-                {project.videoSrc ? (
+                {project.videoSrc && near ? (
                   <video
                     key={project.videoSrc}
-                    src={project.videoSrc}
+                    src={previewOf(project.videoSrc)}
                     poster={project.posterSrc}
                     autoPlay
                     loop
@@ -183,37 +197,66 @@ export function FeaturedWork() {
 
             {/* Job sheet */}
             <div className="min-w-0">
-              <div className="gen-brief timecode min-h-[4.75rem] p-4 text-[0.74rem] leading-6 text-ink/75 sm:min-h-[6rem] sm:p-5 sm:text-[0.8rem]">
-                <span className="mr-2 text-signal">brief &gt;</span>
-                <span ref={briefRef} />
-                <span aria-hidden="true" className="gen-caret" />
+              <div className="gen-brief timecode grid min-h-[4.75rem] p-4 text-[0.74rem] leading-6 text-ink/75 sm:min-h-[6rem] sm:p-5 sm:text-[0.8rem]">
+                {projects.map((p) => (
+                  <span key={p.title} aria-hidden="true" className="invisible col-start-1 row-start-1">
+                    <span className="mr-2">brief &gt;</span>
+                    {p.description}
+                  </span>
+                ))}
+                <span className="col-start-1 row-start-1">
+                  <span className="mr-2 text-signal">brief &gt;</span>
+                  <span ref={briefRef} />
+                  <span aria-hidden="true" className="gen-caret" />
+                </span>
               </div>
 
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.32, ease: easeEditorial }}
-                  className="mt-5 sm:mt-7"
-                >
-                  <p className="eyebrow mb-2">
-                    {project.category} · {project.year}
-                  </p>
-                  <h3 className="font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.02]">{project.title}</h3>
-                  <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
-                    {project.socialProof ? (
-                      <p className="timecode text-[0.7rem] uppercase text-signal">
-                        {project.socialProof.value}
-                        {project.socialProof.suffix} {project.socialProof.label}
-                      </p>
-                    ) : null}
-                    <p className="timecode text-[0.66rem] uppercase text-ink/45">{project.tags.join(" · ")}</p>
+              {/* Every film's sheet sits invisibly in the same grid cell, so the cell is as tall as the longest one. */}
+              <div className="mt-5 grid sm:mt-7">
+                {projects.map((p) => (
+                  <div key={p.title} aria-hidden="true" className="invisible col-start-1 row-start-1">
+                    <p className="eyebrow mb-2">
+                      {p.category} · {p.year}
+                    </p>
+                    <h3 className="font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.02]">{p.title}</h3>
+                    <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+                      {p.socialProof ? (
+                        <p className="timecode text-[0.7rem] uppercase text-signal">
+                          {p.socialProof.value}
+                          {p.socialProof.suffix} {p.socialProof.label}
+                        </p>
+                      ) : null}
+                      <p className="timecode text-[0.66rem] uppercase text-ink/45">{p.tags.join(" · ")}</p>
+                    </div>
+                    {p.reelUrl ? <WatchLink project={p} /> : null}
                   </div>
-                  {project.reelUrl ? <WatchLink project={project} /> : null}
-                </motion.div>
-              </AnimatePresence>
+                ))}
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={project.title}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.32, ease: easeEditorial }}
+                    className="col-start-1 row-start-1"
+                  >
+                    <p className="eyebrow mb-2">
+                      {project.category} · {project.year}
+                    </p>
+                    <h3 className="font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.02]">{project.title}</h3>
+                    <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+                      {project.socialProof ? (
+                        <p className="timecode text-[0.7rem] uppercase text-signal">
+                          {project.socialProof.value}
+                          {project.socialProof.suffix} {project.socialProof.label}
+                        </p>
+                      ) : null}
+                      <p className="timecode text-[0.66rem] uppercase text-ink/45">{project.tags.join(" · ")}</p>
+                    </div>
+                    {project.reelUrl ? <WatchLink project={project} /> : null}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
 

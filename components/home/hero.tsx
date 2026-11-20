@@ -40,7 +40,13 @@ export function Hero() {
       onPointerMove={handlePointerMove}
       onPointerLeave={reset}
     >
-      <BackgroundVideo mp4Src="/videos/hero-background.mp4" webmSrc="/videos/hero-background.webm" />
+      <BackgroundVideo
+        mp4Src="/videos/hero-background.mp4"
+        webmSrc="/videos/hero-background.webm"
+        mobileMp4Src="/videos/hero-background-720.mp4"
+        mobileWebmSrc="/videos/hero-background-720.webm"
+        posterSrc="/images/hero-poster.jpg"
+      />
       {/* Stronger scrim on phones (video detail matters less than text
           legibility on a small screen); unchanged 60% from `lg:` up. */}
       <div aria-hidden="true" className="absolute inset-0 bg-charcoal/75 lg:bg-charcoal/60" />

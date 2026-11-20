@@ -6,7 +6,7 @@
  * gradient over it (left to right) than a typical hero scrim — the image
  * should read as recognizable atmosphere, not disappear entirely.
  *
- * BACKGROUND: /public/images/about-background.png is the real photo
+ * BACKGROUND: /public/images/about-background.jpg (from the .png, 0.14 MB instead of 1.67) is the real photo
  * (the workspace/editing-suite shot). The CSS gradient beneath it is a
  * fallback in case the file is ever removed — with the real photo in
  * place, it's fully covered and invisible.
@@ -21,7 +21,7 @@ export function About() {
       <div
         aria-hidden="true"
         className="absolute -inset-2 bg-cover bg-no-repeat blur-[1.5px] lg:blur-[3px]"
-        style={{ backgroundImage: 'url("/images/about-background.png")', backgroundPosition: "120% center" }}
+        style={{ backgroundImage: 'url("/images/about-background.jpg")', backgroundPosition: "120% center" }}
       />
       {/* Below lg the text spans most of the width and lands on the photo's
           bright shelf lights, so the whole image gets an extra dark scrim
