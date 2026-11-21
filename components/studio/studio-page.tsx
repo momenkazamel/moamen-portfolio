@@ -126,10 +126,10 @@ export function StudioPage() {
         <a
           href="/mk-studio"
           aria-label="Powered by MK Studio"
-          className="group relative mx-auto mt-3 flex items-center gap-2.5 text-[0.58rem] font-medium uppercase tracking-[0.22em] text-cream/35 transition-colors duration-300 hover:text-cream/70"
+          className="group relative mx-auto mt-2 flex items-center gap-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-cream/45 transition-colors duration-300 hover:text-cream/70"
         >
           Powered by
-          <MonogramMark className="h-5 w-[1.05rem] text-cream/60 transition-colors duration-300 group-hover:text-[var(--signal-lift)]" />
+          <MonogramMark className="h-6 w-[1.25rem] text-cream/70 transition-colors duration-300 group-hover:text-[var(--signal-lift)]" />
         </a>
       </div>
     </div>

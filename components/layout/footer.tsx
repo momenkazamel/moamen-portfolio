@@ -116,10 +116,10 @@ export function Footer() {
           <Link
             href="/mk-studio"
             aria-label="Powered by MK Studio"
-            className="group flex items-center justify-self-center gap-2.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-cream/35 transition-colors duration-300 hover:text-cream/70"
+            className="group flex items-center justify-self-center gap-3 text-[0.74rem] font-medium uppercase tracking-[0.22em] text-cream/45 transition-colors duration-300 hover:text-cream/70"
           >
             Powered by
-            <MonogramMark className="h-5 w-[1.05rem] text-cream/60 transition-colors duration-300 group-hover:text-[var(--signal-lift)]" />
+            <MonogramMark className="h-7 w-[1.45rem] text-cream/70 transition-colors duration-300 group-hover:text-[var(--signal-lift)]" />
           </Link>
         </div>
       </div>
