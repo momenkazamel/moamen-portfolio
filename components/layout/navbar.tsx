@@ -20,7 +20,8 @@ const navigation = [
 
 const isPageLink = (href: string) => href.startsWith("/");
 
-const RESUME_URL = "/documents/Moamen_Kazamel_CV.pdf";
+// Header CTA: straight to WhatsApp with the brief started.
+const PROJECT_URL = `https://wa.me/201010431278?text=${encodeURIComponent("Hi Moamen, I'd like to start a project.")}`;
 
 /**
  * Fixed header — transparent over the hero, gaining a soft cream ground,
@@ -177,8 +178,8 @@ export function Navbar() {
     smoothScrollToId(href.slice(1));
   }
 
-  function trackResumeDownload(location: "desktop" | "mobile") {
-    trackEvent("cv_download", { link_url: RESUME_URL, location });
+  function trackStartProject(location: "desktop" | "mobile") {
+    trackEvent("whatsapp_click", { link_url: "https://wa.me/201010431278", location, cta: "start_project" });
   }
 
   const isDarkGround = !isScrolled && !isMenuOpen;
@@ -243,13 +244,13 @@ export function Navbar() {
         </nav>
 
         <Link
-          href={RESUME_URL}
+          href={PROJECT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackResumeDownload("desktop")}
+          onClick={() => trackStartProject("desktop")}
           className="nav-cta hidden items-center gap-2 lg:inline-flex"
         >
-          Download Resume
+          Start a project
           <span aria-hidden="true" className="text-[0.6rem]">
             ↗
           </span>
@@ -367,16 +368,16 @@ export function Navbar() {
                 }}
               >
                 <Link
-                  href={RESUME_URL}
+                  href={PROJECT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
-                    trackResumeDownload("mobile");
+                    trackStartProject("mobile");
                     closeMenu();
                   }}
                   className="nav-cta mt-8"
                 >
-                  Download Resume
+                  Start a project
                   <span aria-hidden="true" className="text-[0.6rem]">
                     ↗
                   </span>
