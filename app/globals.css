@@ -967,3 +967,15 @@ button:hover > .edit-play {
   --signal: var(--signal-lift);
   --signal-rgb: var(--signal-lift-rgb);
 }
+
+/* MK Studio page (/mk-studio). Same dark ground as the hero; oxblood is
+   lifted so it reads on near-black. */
+.studio-ghost {
+  opacity: 0.045;
+  stroke-width: 1;
+}
+
+.studio-lamp {
+  --signal: var(--signal-lift);
+  --signal-rgb: var(--signal-lift-rgb);
+}

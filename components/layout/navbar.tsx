@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MonogramMark } from "@/components/ui/monogram-mark";
@@ -14,7 +15,10 @@ const navigation = [
   { href: "#work", label: "AI Films" },
   { href: "#kids-universe", label: "Kids" },
   { href: "#contact", label: "Contact" },
+  { href: "/mk-studio", label: "MK Studio" },
 ];
+
+const isPageLink = (href: string) => href.startsWith("/");
 
 const RESUME_URL = "/documents/Moamen_Kazamel_CV.pdf";
 
@@ -37,6 +41,8 @@ export function Navbar() {
   const prefersReducedMotion = useReducedMotion();
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     function handleScroll() {
@@ -49,6 +55,7 @@ export function Navbar() {
 
   useEffect(() => {
     const sections = navigation
+      .filter((item) => !isPageLink(item.href))
       .map((item) => document.getElementById(item.href.slice(1)))
       .filter((el): el is HTMLElement => el !== null);
 
@@ -150,7 +157,21 @@ export function Navbar() {
     toggleButtonRef.current?.focus();
   }
 
+  // Section links scroll in place on the home page; from any other page
+  // (and for page links like /mk-studio) they navigate normally.
+  function linkHref(href: string) {
+    return isPageLink(href) || isHome ? href : `/${href}`;
+  }
+
+  function isActive(href: string) {
+    return isPageLink(href) ? pathname === href : isHome && activeSection === href.slice(1);
+  }
+
   function handleNavClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    if (isPageLink(href) || !isHome) {
+      setIsMenuOpen(false);
+      return;
+    }
     event.preventDefault();
     closeMenu();
     smoothScrollToId(href.slice(1));
@@ -211,9 +232,10 @@ export function Navbar() {
           {navigation.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={linkHref(item.href)}
               onClick={(event) => handleNavClick(event, item.href)}
-              className={`nav-link ${activeSection === item.href.slice(1) ? "text-signal" : ""}`}
+              aria-current={isPageLink(item.href) && pathname === item.href ? "page" : undefined}
+              className={`nav-link ${isActive(item.href) ? "text-signal" : ""}`}
             >
               {item.label}
             </Link>
@@ -299,7 +321,7 @@ export function Navbar() {
 
               <div className="flex flex-1 flex-col justify-center gap-1">
                 {navigation.map((item, index) => {
-                  const isActive = activeSection === item.href.slice(1);
+                  const active = isActive(item.href);
                   return (
                     <motion.div
                       key={item.href}
@@ -312,16 +334,16 @@ export function Navbar() {
                       }}
                     >
                       <Link
-                        href={item.href}
+                        href={linkHref(item.href)}
                         onClick={(event) => handleNavClick(event, item.href)}
                         className={`group flex items-baseline gap-4 border-b border-cream/10 py-4 transition-colors duration-300 hover:text-signal focus-visible:text-signal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${
-                          isActive ? "text-signal" : "text-cream"
+                          active ? "text-signal" : "text-cream"
                         }`}
                       >
                         <span
                           aria-hidden="true"
                           className={`text-[0.68rem] font-medium uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-signal group-focus-visible:text-signal ${
-                            isActive ? "text-signal" : "text-cream/30"
+                            active ? "text-signal" : "text-cream/30"
                           }`}
                         >
                           {String(index + 1).padStart(2, "0")}

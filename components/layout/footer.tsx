@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { getLeadEvent, trackEvent } from "@/lib/analytics";
+import { MonogramMark } from "@/components/ui/monogram-mark";
 
 const TOOL_CATEGORIES = [
   { label: "Edit", tools: "Premiere Pro" },
@@ -105,9 +107,21 @@ export function Footer() {
 
         <div className="mt-16 h-px w-full bg-cream/10 lg:mt-20" />
 
-        <p className="mt-10 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/35">
-          © 2026 Moamen Shawky Kazamel
-        </p>
+        {/* Copyright on the left, "Powered by MK" centred on the page; on
+            phones they stack, both centred. */}
+        <div className="mt-10 flex flex-col items-center gap-5 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:gap-4">
+          <p className="text-[0.62rem] font-medium uppercase tracking-[0.2em] text-cream/35 sm:justify-self-start">
+            © 2026 Moamen Shawky Kazamel
+          </p>
+          <Link
+            href="/mk-studio"
+            aria-label="Powered by MK Studio"
+            className="group flex items-center justify-self-center gap-2.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] text-cream/35 transition-colors duration-300 hover:text-cream/70"
+          >
+            Powered by
+            <MonogramMark className="h-5 w-[1.05rem] text-cream/60 transition-colors duration-300 group-hover:text-[var(--signal-lift)]" />
+          </Link>
+        </div>
       </div>
     </footer>
   );
