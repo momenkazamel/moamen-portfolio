@@ -4,7 +4,7 @@ import { StudioPage } from "@/components/studio/studio-page";
 
 const TITLE = "MK Studio · Moamen Shawky Kazamel";
 const DESCRIPTION =
-  "MK Studio: follow @mk.studio.creative on Instagram, TikTok, Facebook and YouTube, or hire the studio for a portfolio website or a video edit.";
+  "MK Studio: follow @mk.studio.creative.eg on Instagram, and the studio on TikTok, Facebook and YouTube, or hire it for a portfolio website or a video edit.";
 
 export const metadata: Metadata = {
   title: TITLE,

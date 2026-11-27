@@ -9,7 +9,7 @@ const HANDLE = "@mk.studio.creative";
 
 /** The four MK Studio social accounts. */
 const SOCIALS = [
-  { label: "Instagram", value: HANDLE, href: "https://www.instagram.com/mk.studio.creative/reels/" },
+  { label: "Instagram", value: "@mk.studio.creative.eg", href: "https://www.instagram.com/mk.studio.creative.eg/" },
   { label: "TikTok", value: HANDLE, href: "https://www.tiktok.com/@mk.studio.creative" },
   { label: "Facebook", value: "MK Studio", href: "https://www.facebook.com/profile.php?id=61596304396125" },
   { label: "YouTube", value: "MK Studio", href: "https://www.youtube.com/channel/UCEk7Y9s6b9DxNE6snqK7usQ" },
